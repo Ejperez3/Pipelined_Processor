@@ -190,19 +190,29 @@ Delcleration of any extra wires needed for connecting modules and for signals us
 
 /* 
  IF/ID Piepline Register
+ Include NOP control
+
+ TODO: EXPECTS INPUT OF NOP
 */
 reg [31:0] reg0_PC_plus4; 
 reg [31:0] reg0_current_PC;  
 reg [31:0] reg0_curr_instruct;
 always @(posedge i_clk) begin
-    if (i_rst)
+  if (i_rst) begin
     reg0_PC_plus4      <= 32'd0;
     reg0_current_PC    <= 32'd0; 
     reg0_curr_instruct <= 32'd0;
-    else
+  end
+  else if (NOP)begin
+    reg0_PC_plus4      <= reg0_PC_plus4;
+    reg0_current_PC    <= reg0_current_PC; 
+    reg0_curr_instruct <= reg0_curr_instruct;
+  end
+  else  begin
     reg0_PC_plus4      <= PC_plus4;
     reg0_current_PC    <= current_PC; 
     reg0_curr_instruct <= curr_instruct;
+  end
  end
 
 
@@ -262,12 +272,21 @@ always @(posedge i_clk) begin
 
 /* 
  ID/EX Piepline Register
+ //Outputs Rd, Rs1, Rs2,
 */
+reg[31:0] rsd_reg;
+reg[31:0] rs1_reg;
+reg[31:0] rs2_reg;
+reg[4:0] IF_ID_RegisterRs1;
+reg[4:0] IF_ID_RegisterRs2;
+reg[4:0] IF_ID_RegisterRsd;
+
+//include mux to control WB, M and EX inputs 
+ 
 always @(posedge i_clk) begin
     if (i_rst)
 
     else
-
  end
 
 
