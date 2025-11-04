@@ -168,6 +168,9 @@ Delcleration of any extra wires needed for connecting modules and for signals us
  Instantiate IF section of proccesor 
 */
 
+
+  
+
   IF fetch_inst (
       .i_clk   (i_clk),   //input- clk to control PC update
       .i_rst   (i_rst),   //input- used to reset PC to starting value
@@ -180,7 +183,27 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   assign o_imem_raddr = current_PC;  //assign instruction memory read adress to current PC
   assign curr_instruct = i_imem_rdata;  //assign current instruction to the input from instruction memory
 
-  /* 
+
+
+/* 
+ IF/ID Piepline Register
+*/
+reg [31:0] reg0_PC_plus4; 
+reg [31:0] reg0_current_PC;  
+reg [31:0] reg0_curr_instruct;
+always @(posedge i_clk) begin
+    if (i_rst)
+    reg0_PC_plus4      <= 32'd0;
+    reg0_current_PC    <= 32'd0; 
+    reg0_curr_instruct <= 32'd0;
+    else
+    reg0_PC_plus4      <= PC_plus4;
+    reg0_current_PC    <= current_PC; 
+    reg0_curr_instruct <= curr_instruct;
+ end
+
+
+/* 
  Instantiate ID section of proccesor 
 */
 
@@ -193,8 +216,8 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   ID decode_I (
       .rst        (i_rst),          //input- to RF
       .clk        (i_clk),          //input- to RF
-      .i_instruct (curr_instruct),  //input- full instruction input
-      .i_currentPC(current_PC),     //input- the current PC value (used for auipc instruction)
+      .i_instruct (reg0_curr_instruct),  //input- full instruction input
+      .i_currentPC(reg0_current_PC),     //input- the current PC value (used for auipc instruction)
       .o_RegWrite (regWrite),
       .i_regData1 (regData1),
       .i_regData2 (regData2),
@@ -214,17 +237,17 @@ Delcleration of any extra wires needed for connecting modules and for signals us
       .func3     (func3_val)       //output- func 3 for branch logic 
   );
 
-  //wirte adress should be 0 when instruction does not write to register 
+  //write adress should be 0 when instruction does not write to register 
   wire [4:0] rf_writeAddress;
-  assign rf_writeAddress = (regWrite) ? curr_instruct[11:7] : 5'b00000;
+  assign rf_writeAddress = (regWrite) ? reg0_curr_instruct[11:7] : 5'b00000;
 
  wire [31:0] WriteDataReg; 
   rf rf (
       .i_clk(i_clk),
       .i_rst(i_rst),
 
-      .i_rs1_raddr(curr_instruct[19:15]),
-      .i_rs2_raddr(curr_instruct[24:20]),
+      .i_rs1_raddr(reg0_curr_instruct[19:15]),
+      .i_rs2_raddr(reg0_curr_instruct[24:20]),
 
       .o_rs1_rdata(regData1),
       .o_rs2_rdata(regData2),
@@ -234,6 +257,17 @@ Delcleration of any extra wires needed for connecting modules and for signals us
       .i_rd_wdata(WriteDataReg)
   );
 
+/* 
+ ID/EX Piepline Register
+*/
+always @(posedge i_clk) begin
+    if (i_rst)
+
+    else
+
+ end
+
+
 
   /* 
  Instantiate EX section of proccesor 
@@ -241,8 +275,8 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   EX execute_I (
       .i_pc(current_PC),            //input- Current PC input should be added to immediate (used for branch instructions)
       .func3(func3_val),  //input- func 3 input for branch logic block (branch.v file)
-      .i_jal(jal_C),  //input- control signal for branch logic block
-      .i_jalr(jalr_C),  //input- control signal for branch logic block
+      .i_jal(jal_C),      //input- control signal for branch logic block
+      .i_jalr(jalr_C),    //input- control signal for branch logic block
       .i_branch(branch_C),  //input- control signal for branch logic block
       .i_ALUOp(ALUop_C),  //input- input to ALU CTRL unit
       .i_op1(ALU_operand1),  //input- ALU operand1
