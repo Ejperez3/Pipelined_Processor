@@ -140,6 +140,7 @@ module hart #(
 Delcleration of any extra wires needed for connecting modules and for signals used across modules 
 */
 
+  wire [31:0] JB_PC; 
   wire [31:0] current_PC;  //will hold current PC value 
   wire [31:0] next_PC;  //holds the adress to be updated in PC next 
   wire [31:0] PC_plus4;  //will hold PC+4 value
@@ -169,6 +170,8 @@ Delcleration of any extra wires needed for connecting modules and for signals us
 */
 
 
+  // choose between PC+4 or jump/Branch PC (By default should be PC+4)
+  assign next_PC = (PC_MUX_SEL[0])? JB_PC : PC_plus4;
   
 
   IF fetch_inst (
@@ -290,11 +293,12 @@ always @(posedge i_clk) begin
   );
 
   
-  wire [31:0] aligned_address;
-  wire byte_hw_unsigned;
-  wire [3:0] mask;
+assign JB_PC = (PC_MUX_SEL[1]) ? PC_offset :  ALU_result;
 
 
+wire [31:0] aligned_address;
+wire byte_hw_unsigned;
+wire [3:0] mask;
   mask_gen mask_gen (
       .address(ALU_result),
       .func3(func3_val),
@@ -307,14 +311,6 @@ always @(posedge i_clk) begin
  Instantiate MEM section of proccesor  (actual memory access done outside MEM module)
 */
 
-  MEM memory_acces (
-      .i_aluResult(ALU_result),       //input- ALU result can be used for either memory adress or multiplexed to next PC
-      .i_PC4(PC_plus4),  //input- previous PC+4 used as input for multiplexer
-      .i_PCimm(PC_offset),  //input- previous PC+imm used as input for multiplexer 
-      .i_MUXpc(PC_MUX_SEL),  //input- select signal used to select next PC
-
-      .o_nxtPC(next_PC)  //output- the next PC based off Mux select signals 
-  );
 
  wire [31:0] WriteDataMem; 
   assign o_dmem_addr = aligned_address;  //assign memory adress port to ALU result  
