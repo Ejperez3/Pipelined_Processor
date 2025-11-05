@@ -10,7 +10,7 @@ z2
 cModel Technology
 dC:/ECE552/Project5/rtl
 valu
-Z0 !s110 1762377645
+Z0 !s110 1762384653
 !i10b 1
 !s100 oc7H75DcELa>N=>JcF^zA2
 Z1 !s11b Dg1SIo80bB@j0V0VzS_@n1
@@ -20,13 +20,13 @@ Z3 dC:/ECE552/Pipelined_Processor/rtl
 Z4 w1760996390
 Z5 8C:/ECE552/Pipelined_Processor/rtl/alu.v
 Z6 FC:/ECE552/Pipelined_Processor/rtl/alu.v
-!i122 335
+!i122 366
 L0 8 89
 Z7 OV;L;2020.1;71
 r1
 !s85 0
 31
-Z8 !s108 1762377645.000000
+Z8 !s108 1762384653.000000
 Z9 !s107 C:/ECE552/Pipelined_Processor/rtl/alu.v|
 Z10 !s90 -reportprogress|300|-work|work|-stats=none|C:/ECE552/Pipelined_Processor/rtl/alu.v|
 !i113 1
@@ -43,7 +43,7 @@ R3
 Z13 w1761096892
 8C:/ECE552/Pipelined_Processor/rtl/alu_control.v
 FC:/ECE552/Pipelined_Processor/rtl/alu_control.v
-!i122 336
+!i122 367
 Z14 L0 3 67
 R7
 r1
@@ -66,7 +66,7 @@ R3
 R4
 R5
 R6
-!i122 335
+!i122 366
 L0 98 42
 R7
 r1
@@ -89,7 +89,7 @@ R3
 w1762373744
 8C:/ECE552/Pipelined_Processor/rtl/branch.v
 FC:/ECE552/Pipelined_Processor/rtl/branch.v
-!i122 337
+!i122 368
 L0 10 22
 R7
 r1
@@ -112,7 +112,7 @@ R3
 R13
 8C:/ECE552/Pipelined_Processor/rtl/Control.v
 FC:/ECE552/Pipelined_Processor/rtl/Control.v
-!i122 338
+!i122 369
 L0 9 84
 R7
 r1
@@ -136,7 +136,7 @@ R3
 R4
 8C:/ECE552/Pipelined_Processor/rtl/EX.v
 FC:/ECE552/Pipelined_Processor/rtl/EX.v
-!i122 339
+!i122 370
 R14
 R7
 r1
@@ -152,16 +152,16 @@ n@e@x
 vhart
 R0
 !i10b 1
-!s100 9OMVkVdz8m?e2bm`8PCnV3
+!s100 jMW7lYoH=l:>7ZFbmabFg3
 R1
-IfAa@79J8L@3@XQ3@7NBKH0
+IEW08ZH:fOli@eM4VGXO8=0
 R2
 R3
-w1762377631
+w1762384637
 8C:/ECE552/Pipelined_Processor/rtl/hart.v
 FC:/ECE552/Pipelined_Processor/rtl/hart.v
-!i122 340
-L0 2 608
+!i122 371
+L0 2 611
 R7
 r1
 !s85 0
@@ -174,7 +174,7 @@ R11
 R12
 vhart_tb
 DXx6 sv_std 3 std 0 22 VYECXdT12H8WgbUP_5Y6:3
-Z15 !s110 1762377646
+Z15 !s110 1762384655
 !i10b 1
 !s100 02m;P^cL5O9Z@X5iFi24L1
 R1
@@ -185,30 +185,30 @@ R3
 w1761069640
 8C:/ECE552/Pipelined_Processor/rtl/tb.sv
 FC:/ECE552/Pipelined_Processor/rtl/tb.sv
-!i122 349
+!i122 380
 L0 2 144
 R7
 r1
 !s85 0
 31
-Z16 !s108 1762377646.000000
+Z16 !s108 1762384654.000000
 !s107 C:/ECE552/Pipelined_Processor/rtl/tb.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/ECE552/Pipelined_Processor/rtl/tb.sv|
 !i113 1
 o-work work -sv
 R12
 vhazard
-R0
+Z17 !s110 1762384654
 !i10b 1
 !s100 =@X=TX>gOUn6DFhhhkl241
 R1
 I`jfE7imf]7<R3Z6JUV8Ua2
 R2
 R3
-w1762377628
+w1762384482
 8C:/ECE552/Pipelined_Processor/rtl/hazard.v
 FC:/ECE552/Pipelined_Processor/rtl/hazard.v
-!i122 341
+!i122 372
 L0 7 28
 R7
 r1
@@ -221,7 +221,7 @@ R8
 R11
 R12
 vID
-R0
+R17
 !i10b 1
 !s100 mdfBEM;deDiLALFk4c7PD2
 R1
@@ -231,13 +231,13 @@ R3
 w1761071045
 8C:/ECE552/Pipelined_Processor/rtl/ID.v
 FC:/ECE552/Pipelined_Processor/rtl/ID.v
-!i122 342
+!i122 373
 L0 2 81
 R7
 r1
 !s85 0
 31
-R8
+R16
 !s107 C:/ECE552/Pipelined_Processor/rtl/ID.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/ECE552/Pipelined_Processor/rtl/ID.v|
 !i113 1
@@ -245,23 +245,23 @@ R11
 R12
 n@i@d
 vIF
-R15
+R17
 !i10b 1
 !s100 NPWa054]mK79cIO[l1c411
 R1
 I=o4DPZhYWT<C4A1E<;D6H3
 R2
 R3
-Z17 w1762300620
+Z18 w1762300620
 8C:/ECE552/Pipelined_Processor/rtl/IF.v
 FC:/ECE552/Pipelined_Processor/rtl/IF.v
-!i122 343
+!i122 374
 L0 3 24
 R7
 r1
 !s85 0
 31
-R8
+R16
 !s107 C:/ECE552/Pipelined_Processor/rtl/IF.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/ECE552/Pipelined_Processor/rtl/IF.v|
 !i113 1
@@ -269,7 +269,7 @@ R11
 R12
 n@i@f
 vimm
-R15
+R17
 !i10b 1
 !s100 zScGKgaJc037e:6HBhgUK1
 R1
@@ -279,7 +279,7 @@ R3
 w1761073851
 8C:/ECE552/Pipelined_Processor/rtl/imm.v
 FC:/ECE552/Pipelined_Processor/rtl/imm.v
-!i122 344
+!i122 375
 L0 7 25
 R7
 r1
@@ -292,7 +292,7 @@ R16
 R11
 R12
 vimm_format
-R15
+R17
 !i10b 1
 !s100 6Alkk<gda=7cUPkD6nG@H1
 R1
@@ -302,7 +302,7 @@ R3
 w1761063773
 8C:/ECE552/Pipelined_Processor/rtl/imm_format.v
 FC:/ECE552/Pipelined_Processor/rtl/imm_format.v
-!i122 345
+!i122 376
 L0 2 34
 R7
 r1
@@ -315,7 +315,7 @@ R16
 R11
 R12
 vmask_gen
-R15
+R17
 !i10b 1
 !s100 =;XAkDAW>LeW1=B2I3JT01
 R1
@@ -325,7 +325,7 @@ R3
 w1761098361
 8C:/ECE552/Pipelined_Processor/rtl/mask_gen.v
 FC:/ECE552/Pipelined_Processor/rtl/mask_gen.v
-!i122 346
+!i122 377
 L0 35 23
 R7
 r1
@@ -338,17 +338,17 @@ R16
 R11
 R12
 vrf
-R15
+R17
 !i10b 1
 !s100 CeMRGP?[cG>gZ6z@4?YAU1
 R1
 I;F<=hY5BGYH8mfReFGTQ]2
 R2
 R3
-R17
+R18
 8C:/ECE552/Pipelined_Processor/rtl/rf.v
 FC:/ECE552/Pipelined_Processor/rtl/rf.v
-!i122 347
+!i122 378
 L0 12 56
 R7
 r1
@@ -361,7 +361,7 @@ R16
 R11
 R12
 vS_extend
-R15
+R17
 !i10b 1
 !s100 R82G`l3amYW3Q=T@>3P0z2
 R1
@@ -371,7 +371,7 @@ R3
 w1762370719
 8C:/ECE552/Pipelined_Processor/rtl/S_extend.v
 FC:/ECE552/Pipelined_Processor/rtl/S_extend.v
-!i122 348
+!i122 379
 L0 3 43
 R7
 r1
@@ -395,13 +395,13 @@ R3
 R4
 8C:/ECE552/Pipelined_Processor/rtl/WB.v
 FC:/ECE552/Pipelined_Processor/rtl/WB.v
-!i122 350
+!i122 381
 L0 2 26
 R7
 r1
 !s85 0
 31
-R16
+!s108 1762384655.000000
 !s107 C:/ECE552/Pipelined_Processor/rtl/WB.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/ECE552/Pipelined_Processor/rtl/WB.v|
 !i113 1

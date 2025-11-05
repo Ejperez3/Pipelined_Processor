@@ -239,6 +239,7 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   reg reg0_regWrite;
   reg [31:0] reg1_curr_instruct;
   reg [31:0] reg2_curr_instruct;
+  reg reg1_regWrite; 
 
   //output
   wire PC_En;
@@ -247,12 +248,15 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   hazard haz (
       .IF_ID_RS1(reg0_curr_instruct[19:15]),
       .IF_ID_RS2(reg0_curr_instruct[24:20]),
-      .ID_EX_RegWrite(reg1_curr_instruct[11:7]),
+      .ID_EX_RegWrite(reg0_regWrite),
+      .EX_MEM_RegWrite(reg1_regWrite), 
+      .ID_EX_WriteReg(reg1_curr_instruct[11:7]),
       .EX_MEM_WriteReg(reg2_curr_instruct[11:7]),
+      .valid_inst(reg0_retire_valid),
+
       .PC_En(PC_En),
       .IF_ID_En(IF_ID_En),
-      .Mux_sel(Mux_sel),
-      .valid_inst(reg0_retire_valid)
+      .Mux_sel(Mux_sel)
   );
 
   /* 
@@ -443,7 +447,6 @@ wire [31:0] aligned_address;
   reg reg0_byte_hw_unsigned;
   reg [31:0] reg0_ALU_result;
   reg [31:0] reg1_immediate_val; 
-  reg reg1_regWrite; 
   reg reg1_MemRead_C;
   reg [1:0] reg1_Data_sel_C; 
   reg reg1_MemWrite_C; 
