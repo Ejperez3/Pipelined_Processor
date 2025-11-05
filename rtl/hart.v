@@ -184,7 +184,7 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   );
 
   assign o_imem_raddr = current_PC;  //assign instruction memory read adress to current PC
-  assign curr_instruct = i_imem_rdata;  //assign current instruction to the input from instruction memory
+  assign curr_instruct = i_imem_rdata;  //assign current instruction to the output from instruction memory
 
 
 
@@ -252,7 +252,7 @@ always @(posedge i_clk) begin
 
   //write adress should be 0 when instruction does not write to register 
   wire [4:0] rf_writeAddress;
-  assign rf_writeAddress = (reg2_regWrite) ? reg0_curr_instruct[11:7] : 5'b00000;
+  assign rf_writeAddress = (reg2_regWrite) ? reg3_curr_instruct[11:7] : 5'b00000;
 
  wire [31:0] WriteDataReg; 
   rf rf (
@@ -304,6 +304,7 @@ reg[31:0] rs2_reg;
 reg[4:0] IF_ID_RegisterRs1;
 reg[4:0] IF_ID_RegisterRs2;
 reg[4:0] IF_ID_RegisterRsd;
+reg[31:0] reg1_curr_instruct;
 
 //include mux to control WB, M and EX inputs 
  
@@ -325,7 +326,8 @@ always @(posedge i_clk) begin
       reg0_Mem_WD        <= 32'd0;
       reg0_ALUop_C       <= 3'd0;
       reg0_func_val      <= 4'd0;
-      reg0_OP            <= 7'd0;   
+      reg0_OP            <= 7'd0;
+      reg1_curr_instruct <= 32'd0;    
 
     end else begin 
       reg1_current_PC    <= reg0_current_PC;
@@ -344,7 +346,8 @@ always @(posedge i_clk) begin
       reg0_Mem_WD        <= Mem_WD;
       reg0_ALUop_C       <= ALUop_C; 
       reg0_func_val      <= func_val;
-      reg0_OP            <= reg0_curr_instruct[6:0]; 
+      reg0_OP            <= reg0_curr_instruct[6:0];
+      reg1_curr_instruct <= reg0_curr_instruct; 
     end 
  end
 
@@ -371,9 +374,6 @@ always @(posedge i_clk) begin
 
   
 assign JB_PC = (PC_MUX_SEL[1]) ? PC_offset :  ALU_result;
-
-
-
 
 
 S_extend dataEXT(
@@ -414,7 +414,8 @@ wire [3:0] mask;
   reg reg1_MemRead_C;
   reg [1:0] reg1_Data_sel_C; 
   reg reg1_MemWrite_C; 
-  reg [31:0] reg2_WriteDataMem; 
+  reg [31:0] reg0_WriteDataMem; 
+  reg [31:0] reg2_curr_instruct;
 
   always @(posedge i_clk) begin
     if (i_rst) begin 
@@ -428,7 +429,8 @@ wire [3:0] mask;
       reg1_MemRead_C <= 1'd0;
       reg1_Data_sel_C <= 2'd0;
       reg1_MemWrite_C <= 1'd0;
-      reg2_WriteDataMem <= 32'd0;
+      reg0_WriteDataMem <= 32'd0;
+      reg2_curr_instruct <= 32'd0; 
 
     end else begin
       reg2_PC_plus4 <= reg1_PC_plus4;
@@ -441,7 +443,8 @@ wire [3:0] mask;
       reg1_MemRead_C <= reg0_MemRead_C;
       reg1_Data_sel_C <= reg0_Data_sel_C;
       reg1_MemWrite_C <= reg0_MemWrite_C;
-      reg2_WriteDataMem <= WriteDataMem;
+      reg0_WriteDataMem <= WriteDataMem;
+      reg2_curr_instruct <= reg1_curr_instruct;
     end
   end
 
@@ -452,8 +455,8 @@ wire [3:0] mask;
 
   wire [31:0] WriteDataMem; 
   assign o_dmem_addr = reg0_aligned_address;  //assign memory adress port to ALU result  
-  assign o_dmem_ren  = MemRead_C;   //assign Memory Read enable signal 
-  assign o_dmem_wen  = MemWrite_C;  //assign Memory Write enable signal 
+  assign o_dmem_ren  = reg1_MemRead_C;   //assign Memory Read enable signal 
+  assign o_dmem_wen  = reg1_MemWrite_C;  //assign Memory Write enable signal 
   assign o_dmem_wdata = reg2_WriteDataMem;     //assign Memory Write data port to register output #2
   assign MEM_DATA = i_dmem_rdata;    //data returned from memory 
 
@@ -475,6 +478,7 @@ reg [31:0] reg2_immediate_val;
 reg [31:0] reg3_PC_plus4; 
 reg [3:0]  reg1_mask;
 reg reg1_byte_hw_unsigned;
+reg [31:0] reg3_curr_instruct;
 
 
 always @(posedge i_clk) begin
@@ -487,6 +491,7 @@ always @(posedge i_clk) begin
       reg3_PC_plus4         <= 32'd0;
       reg1_mask             <= 4'd0;
       reg1_byte_hw_unsigned <= 1'd0;
+      reg3_curr_instruct    <= 32'd0; 
 
     end else begin
       reg2_regWrite         <= reg1_regWrite;
@@ -496,7 +501,8 @@ always @(posedge i_clk) begin
       reg2_immediate_val    <= reg1_immediate_val; 
       reg3_PC_plus4         <= reg2_PC_plus4;
       reg1_mask             <= reg0_mask;
-      reg1_byte_hw_unsigned <= reg0_byte_hw_unsigned; 
+      reg1_byte_hw_unsigned <= reg0_byte_hw_unsigned;
+      reg3_curr_instruct    <= reg2_curr_instruct; 
 
 
     end 
