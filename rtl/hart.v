@@ -251,7 +251,8 @@ Delcleration of any extra wires needed for connecting modules and for signals us
       .EX_MEM_WriteReg(reg2_curr_instruct[11:7]),
       .PC_En(PC_En),
       .IF_ID_En(IF_ID_En),
-      .Mux_sel(Mux_sel)
+      .Mux_sel(Mux_sel),
+      .valid_inst(reg0_retire_valid)
   );
 
   /* 
@@ -328,7 +329,6 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   reg [2:0] reg0_ALUop_C;
   reg [3:0] reg0_func_val;
   reg [6:0] reg0_OP;
-
   reg reg1_retire_valid; 
 
   //include mux to control WB, M and EX inputs 

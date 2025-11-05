@@ -7,6 +7,7 @@
 module hazard (
     input wire [4:0] IF_ID_RS1,
     input wire [4:0] IF_ID_RS2,
+    input wire valid_inst, 
 
     input wire [4:0] ID_EX_WriteReg,
     input wire ID_EX_RegWrite,
@@ -21,16 +22,13 @@ module hazard (
 );
 
   wire hazard;
-  assign hazard=((ID_EX_RegWrite && ((ID_EX_WriteReg == IF_ID_RS1) || (ID_EX_WriteReg == IF_ID_RS2))) ||
-
-
-        (EX_MEM_RegWrite && ((EX_MEM_WriteReg == IF_ID_RS1) || (EX_MEM_WriteReg == IF_ID_RS2)))
-
-
-    );
+assign hazard = valid_inst && (
+                   (ID_EX_RegWrite && ((ID_EX_WriteReg == IF_ID_RS1) || (ID_EX_WriteReg == IF_ID_RS2))) ||
+                   (EX_MEM_RegWrite && ((EX_MEM_WriteReg == IF_ID_RS1) || (EX_MEM_WriteReg == IF_ID_RS2)))
+                 );
 
   assign PC_En = (~hazard);
   assign IF_ID_En = (~hazard);
   assign Mux_sel = (hazard);
-  
+
 endmodule
