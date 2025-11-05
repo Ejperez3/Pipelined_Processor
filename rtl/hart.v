@@ -1,15 +1,12 @@
-`default_nettype none
 module hart #(
     // After reset, the program counter (PC) should be initialized to this
     // address and start executing instructions from there.
     parameter RESET_ADDR = 32'h00000000
 ) (
     // Global clock.
-    input wire i_clk,
-
+    input  wire        i_clk,
     // Synchronous active-high reset.
-    input wire i_rst,
-
+    input  wire        i_rst,
     // Instruction fetch goes through a read only instruction memory (imem)
     // port. The port accepts a 32-bit address (e.g. from the program counter)
     // per cycle and combinationally returns a 32-bit instruction word. This
@@ -20,10 +17,12 @@ module hart #(
     // 32-bit read address for the instruction memory. This is expected to be
     // 4 byte aligned - that is, the two LSBs should be zero.
     output wire [31:0] o_imem_raddr,
-
-    // Instruction word fetched from memory, available on the same cycle.
-    input wire [31:0] i_imem_rdata,
-
+    // Instruction word fetched from memory, available synchronously after
+    // the next clock edge.
+    // NOTE: This is different from the previous phase. To accomodate a
+    // multi-cycle pipelined design, the instruction memory read is
+    // now synchronous.
+    input  wire [31:0] i_imem_rdata,
     // Data memory accesses go through a separate read/write data memory (dmem)
     // that is shared between read (load) and write (stored). The port accepts
     // a 32-bit address, read or write enable, and mask (explained below) each
@@ -65,7 +64,7 @@ module hart #(
     // word right by 16 bits and sign/zero extend as appropriate.
     //
     // To perform a byte write at address 0x00002003, align `o_dmem_addr` to
-    // `0x00002003`, assert `o_dmem_wen`, and set the mask to 0b1000 to
+    // `0x00002000`, assert `o_dmem_wen`, and set the mask to 0b1000 to
     // indicate that only the upper byte should be written. On the next clock
     // cycle, the upper byte of `o_dmem_wdata` will be written to memory, with
     // the other three bytes of the aligned word unaffected. Remember to shift
@@ -73,11 +72,15 @@ module hart #(
     // appropriate byte lane.
     output wire [ 3:0] o_dmem_mask,
     // The 32-bit word read from data memory. When `o_dmem_ren` is asserted,
-    // this will immediately reflect the contents of memory at the specified
-    // address, for the bytes enabled by the mask. When read enable is not
-    // asserted, or for bytes not set in the mask, the value is undefined.
+    // after the next clock edge, this will reflect the contents of memory
+    // at the specified address, for the bytes enabled by the mask. When
+    // read enable is not asserted, or for bytes not set in the mask, the
+    // value is undefined.
+    // NOTE: This is different from the previous phase. To accomodate a
+    // multi-cycle pipelined design, the data memory read is
+    // now synchronous.
     input  wire [31:0] i_dmem_rdata,
-    // The output `retire` interface is used to signal to the testbench that
+	// The output `retire` interface is used to signal to the testbench that
     // the CPU has completed and retired an instruction. A single cycle
     // implementation will assert this every cycle; however, a pipelined
     // implementation that needs to stall (due to internal hazards or waiting
@@ -123,25 +126,45 @@ module hart #(
     // writeback stage by this instruction. If rd is 5'd0, this field is
     // ignored and can be treated as a don't care.
     output wire [31:0] o_retire_rd_wdata,
+    // The following data memory retire interface is used to record the
+    // memory transactions completed by the instruction being retired.
+    // As such, it mirrors the transactions happening on the main data
+    // memory interface (o_dmem_* and i_dmem_*) but is delayed to match
+    // the retirement of the instruction. You can hook this up by just
+    // registering the main dmem interface signals into the writeback
+    // stage of your pipeline.
+    //
+    // All these fields are don't-care for instructions that do not
+    // access data memory (o_retire_dmem_ren and o_retire_dmem_wen
+    // not asserted).
+    // NOTE: This interface is new for phase 5 in order to account for
+    // the delay between data memory accesses and instruction retire.
+    //
+    // The 32-bit data memory address accessed by the instruction.
+    output wire [31:0] o_retire_dmem_addr,
+    // The byte masked used for the data memory access.
+    output wire [ 3:0] o_retire_dmem_mask,
+    // Asserted if the instruction performed a read (load) from data memory.
+    output wire        o_retire_dmem_ren,
+    // Asserted if the instruction performed a write (store) to data memory.
+    output wire        o_retire_dmem_wen,
+    // The 32-bit data read from memory by a load instruction.
+    output wire [31:0] o_retire_dmem_rdata,
+    // The 32-bit data written to memory by a store instruction.
+    output wire [31:0] o_retire_dmem_wdata,
     // The current program counter of the instruction being retired - i.e.
     // the instruction memory address that the instruction was fetched from.
     output wire [31:0] o_retire_pc,
     // the next program counter after the instruction is retired. For most
     // instructions, this is `o_retire_pc + 4`, but must be the branch or jump
     // target for *taken* branches and jumps.
-    output wire [31:0] o_retire_next_pc,
-
-    output wire [31:0] o_retire_dmem_addr,
-    output wire o_retire_dmem_ren,
-    output wire o_retire_dmem_wen,
-    output wire [3:0] o_retire_dmem_mask,
-    output wire [31:0] o_retire_dmem_wdata,
-    output wire [31:0] o_retire_dmem_rdata
+    output wire [31:0] o_retire_next_pc
 
 `ifdef RISCV_FORMAL
-    `RVFI_OUTPUTS,
+    ,`RVFI_OUTPUTS,
 `endif
 );
+
 
   /*
 Delcleration of any extra wires needed for connecting modules and for signals used across modules 
