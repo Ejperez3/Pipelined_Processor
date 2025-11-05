@@ -20,17 +20,12 @@ module hazard (
     output wire Mux_sel
 );
 
-  always @(*) begin
-    if ((ID_EX_RegWrite && ((ID_EX_WriteReg == IF_ID_RS1) || (ID_EX_WriteReg == IF_ID_RS2))) ||
+  wire hazard;
+  assign hazard=((ID_EX_RegWrite && ((ID_EX_WriteReg == IF_ID_RS1) || (ID_EX_WriteReg == IF_ID_RS2))) ||
         (EX_MEM_RegWrite && ((EX_MEM_WriteReg == IF_ID_RS1) || (EX_MEM_WriteReg == IF_ID_RS2)))
-    ) begin
-      PC_En = 0;
-      IF_ID_En = 0;
-      Mux_sel = 1;
-    end else begin
-      PC_En = 1;
-      IF_ID_En = 1;
-      Mux_sel = 0;
-    end
-  end
+    );
+
+  assign PC_En = (~hazard);
+  assign IF_ID_En = (~hazard);
+  assign Mux_sel = (hazard);
 endmodule
