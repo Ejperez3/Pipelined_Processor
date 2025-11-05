@@ -166,6 +166,10 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   wire [31:0] MEM_DATA;  //Data returned from memory read  
   wire [31:0] WB_DATA;  //data to be input into register file 
   wire IF_ID_En;  
+
+  reg [31:0] reg2_regWrite;
+  reg [31:0] reg3_curr_instruct;
+  
   /* 
  Instantiate IF section of proccesor 
 */
@@ -236,7 +240,7 @@ Delcleration of any extra wires needed for connecting modules and for signals us
       .EX_MEM_WriteReg(),
       .PC_En(PC_En),
       .IF_ID_En(IF_ID_En),
-      .Mux_sel(Mux_sel),
+      .Mux_sel(Mux_sel)
   );
 
   /* 
@@ -510,7 +514,6 @@ wire [3:0] mask;
 /* 
  MEM/WB pipeline register  
 */
-reg [31:0] reg2_regWrite;
 reg [1:0]  reg2_Data_sel_C;
 reg [31:0] reg0_MEM_DATA;
 reg [31:0] reg1_ALU_result;
@@ -518,7 +521,7 @@ reg [31:0] reg2_immediate_val;
 reg [31:0] reg3_PC_plus4; 
 reg [3:0]  reg1_mask;
 reg reg1_byte_hw_unsigned;
-reg [31:0] reg3_curr_instruct;
+
 
 
 always @(posedge i_clk) begin

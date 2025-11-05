@@ -10,7 +10,7 @@ z2
 cModel Technology
 dC:/ECE552/Project5/rtl
 valu
-Z0 !s110 1762306735
+Z0 !s110 1762306907
 !i10b 1
 !s100 oc7H75DcELa>N=>JcF^zA2
 Z1 !s11b Dg1SIo80bB@j0V0VzS_@n1
@@ -20,13 +20,13 @@ Z3 dC:/ECE552/Pipelined_Processor/rtl
 Z4 w1760996390
 Z5 8C:/ECE552/Pipelined_Processor/rtl/alu.v
 Z6 FC:/ECE552/Pipelined_Processor/rtl/alu.v
-!i122 28
+!i122 43
 L0 8 89
 Z7 OV;L;2020.1;71
 r1
 !s85 0
 31
-Z8 !s108 1762306735.000000
+Z8 !s108 1762306907.000000
 Z9 !s107 C:/ECE552/Pipelined_Processor/rtl/alu.v|
 Z10 !s90 -reportprogress|300|-work|work|-stats=none|C:/ECE552/Pipelined_Processor/rtl/alu.v|
 !i113 1
@@ -43,7 +43,7 @@ R3
 Z13 w1761096892
 8C:/ECE552/Pipelined_Processor/rtl/alu_control.v
 FC:/ECE552/Pipelined_Processor/rtl/alu_control.v
-!i122 29
+!i122 44
 Z14 L0 3 67
 R7
 r1
@@ -66,7 +66,7 @@ R3
 R4
 R5
 R6
-!i122 28
+!i122 43
 L0 98 42
 R7
 r1
@@ -89,7 +89,7 @@ R3
 w1761063746
 8C:/ECE552/Pipelined_Processor/rtl/branch.v
 FC:/ECE552/Pipelined_Processor/rtl/branch.v
-!i122 30
+!i122 45
 L0 10 22
 R7
 r1
@@ -112,7 +112,7 @@ R3
 R13
 8C:/ECE552/Pipelined_Processor/rtl/Control.v
 FC:/ECE552/Pipelined_Processor/rtl/Control.v
-!i122 31
+!i122 46
 L0 9 84
 R7
 r1
@@ -136,7 +136,7 @@ R3
 R4
 8C:/ECE552/Pipelined_Processor/rtl/EX.v
 FC:/ECE552/Pipelined_Processor/rtl/EX.v
-!i122 32
+!i122 47
 R14
 R7
 r1
@@ -151,7 +151,7 @@ R12
 n@e@x
 vhart_tb
 DXx6 sv_std 3 std 0 22 VYECXdT12H8WgbUP_5Y6:3
-Z15 !s110 1762306736
+Z15 !s110 1762306908
 !i10b 1
 !s100 02m;P^cL5O9Z@X5iFi24L1
 R1
@@ -162,20 +162,20 @@ R3
 w1761069640
 8C:/ECE552/Pipelined_Processor/rtl/tb.sv
 FC:/ECE552/Pipelined_Processor/rtl/tb.sv
-!i122 41
+!i122 56
 L0 2 144
 R7
 r1
 !s85 0
 31
-Z16 !s108 1762306736.000000
+Z16 !s108 1762306908.000000
 !s107 C:/ECE552/Pipelined_Processor/rtl/tb.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/ECE552/Pipelined_Processor/rtl/tb.sv|
 !i113 1
 o-work work -sv
 R12
 vhazard
-R0
+R15
 !i10b 1
 !s100 UeKQCXP5M9o9dzcEZM5]G3
 R1
@@ -185,20 +185,20 @@ R3
 w1762306725
 8C:/ECE552/Pipelined_Processor/rtl/hazard.v
 FC:/ECE552/Pipelined_Processor/rtl/hazard.v
-!i122 33
+!i122 48
 Z17 L0 7 25
 R7
 r1
 !s85 0
 31
-R8
+R16
 !s107 C:/ECE552/Pipelined_Processor/rtl/hazard.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/ECE552/Pipelined_Processor/rtl/hazard.v|
 !i113 1
 R11
 R12
 vID
-R0
+R15
 !i10b 1
 !s100 mdfBEM;deDiLALFk4c7PD2
 R1
@@ -208,13 +208,13 @@ R3
 w1761071045
 8C:/ECE552/Pipelined_Processor/rtl/ID.v
 FC:/ECE552/Pipelined_Processor/rtl/ID.v
-!i122 34
+!i122 49
 L0 2 81
 R7
 r1
 !s85 0
 31
-R8
+R16
 !s107 C:/ECE552/Pipelined_Processor/rtl/ID.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/ECE552/Pipelined_Processor/rtl/ID.v|
 !i113 1
@@ -232,13 +232,13 @@ R3
 Z18 w1762300620
 8C:/ECE552/Pipelined_Processor/rtl/IF.v
 FC:/ECE552/Pipelined_Processor/rtl/IF.v
-!i122 35
+!i122 50
 L0 3 24
 R7
 r1
 !s85 0
 31
-R8
+R16
 !s107 C:/ECE552/Pipelined_Processor/rtl/IF.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/ECE552/Pipelined_Processor/rtl/IF.v|
 !i113 1
@@ -256,7 +256,7 @@ R3
 w1761073851
 8C:/ECE552/Pipelined_Processor/rtl/imm.v
 FC:/ECE552/Pipelined_Processor/rtl/imm.v
-!i122 36
+!i122 51
 R17
 R7
 r1
@@ -279,7 +279,7 @@ R3
 w1761063773
 8C:/ECE552/Pipelined_Processor/rtl/imm_format.v
 FC:/ECE552/Pipelined_Processor/rtl/imm_format.v
-!i122 37
+!i122 52
 L0 2 34
 R7
 r1
@@ -302,7 +302,7 @@ R3
 w1761098361
 8C:/ECE552/Pipelined_Processor/rtl/mask_gen.v
 FC:/ECE552/Pipelined_Processor/rtl/mask_gen.v
-!i122 38
+!i122 53
 L0 35 23
 R7
 r1
@@ -325,7 +325,7 @@ R3
 R18
 8C:/ECE552/Pipelined_Processor/rtl/rf.v
 FC:/ECE552/Pipelined_Processor/rtl/rf.v
-!i122 39
+!i122 54
 L0 12 56
 R7
 r1
@@ -348,7 +348,7 @@ R3
 w1761100904
 8C:/ECE552/Pipelined_Processor/rtl/S_extend.v
 FC:/ECE552/Pipelined_Processor/rtl/S_extend.v
-!i122 40
+!i122 55
 L0 3 42
 R7
 r1
@@ -362,7 +362,7 @@ R11
 R12
 n@s_extend
 vWB
-R15
+!s110 1762306909
 !i10b 1
 !s100 ?`IO;]WMUifL?WLA2KmAF0
 R1
@@ -372,7 +372,7 @@ R3
 R4
 8C:/ECE552/Pipelined_Processor/rtl/WB.v
 FC:/ECE552/Pipelined_Processor/rtl/WB.v
-!i122 42
+!i122 57
 L0 2 26
 R7
 r1
