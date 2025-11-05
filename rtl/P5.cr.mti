@@ -1,0 +1,107 @@
+C:/ECE552/Pipelined_Processor/rtl/IF.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/IF.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module IF
+
+Top level modules:
+	IF
+
+} {} {}} C:/ECE552/Pipelined_Processor/rtl/rf.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/rf.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module rf
+
+Top level modules:
+	rf
+
+} {} {}} C:/ECE552/Pipelined_Processor/rtl/tb.sv {1 {vlog -work work -sv -stats=none C:/ECE552/Pipelined_Processor/rtl/tb.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module hart_tb
+
+Top level modules:
+	hart_tb
+
+} {} {}} C:/ECE552/Pipelined_Processor/rtl/Control.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/Control.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module Control
+
+Top level modules:
+	Control
+
+} {} {}} C:/ECE552/Pipelined_Processor/rtl/S_extend.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/S_extend.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module S_extend
+
+Top level modules:
+	S_extend
+
+} {} {}} C:/ECE552/Pipelined_Processor/rtl/alu.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/alu.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module alu
+-- Compiling module barrel_shifter
+
+Top level modules:
+	alu
+
+} {} {}} C:/ECE552/Pipelined_Processor/rtl/hazard.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/hazard.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module hazard
+
+Top level modules:
+	hazard
+
+} {} {}} C:/ECE552/Pipelined_Processor/rtl/branch.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/branch.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module branch
+
+Top level modules:
+	branch
+
+} {} {}} C:/ECE552/Pipelined_Processor/rtl/WB.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/WB.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module WB
+
+Top level modules:
+	WB
+
+} {} {}} C:/ECE552/Pipelined_Processor/rtl/alu_control.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/alu_control.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module alu_control
+
+Top level modules:
+	alu_control
+
+} {} {}} C:/ECE552/Pipelined_Processor/rtl/imm.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/imm.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module imm
+
+Top level modules:
+	imm
+
+} {} {}} C:/ECE552/Pipelined_Processor/rtl/imm_format.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/imm_format.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module imm_format
+
+Top level modules:
+	imm_format
+
+} {} {}} C:/ECE552/Pipelined_Processor/rtl/EX.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/EX.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module EX
+
+Top level modules:
+	EX
+
+} {} {}} C:/ECE552/Pipelined_Processor/rtl/ID.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/ID.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module ID
+
+Top level modules:
+	ID
+
+} {} {}} C:/ECE552/Pipelined_Processor/rtl/mask_gen.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/mask_gen.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module mask_gen
+
+Top level modules:
+	mask_gen
+
+} {} {}}
