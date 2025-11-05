@@ -417,6 +417,8 @@ wire [31:0] WriteDataMem;
 S_extend dataEXT(
   .i_mask(mask),         
   .i_unsign(byte_hw_unsigned),
+  .i_old_mask(reg1_mask),
+  .i_old_unsign(reg1_byte_hw_unsigned), 
 
   .i_Rs2Data(Mem_WD),                 //register data input 
   .o_Memdata(WriteDataMem),           //aligned output based on mask 
@@ -441,10 +443,10 @@ wire [31:0] aligned_address;
   EX/MEM Pipeline Register
   */
   reg [31:0] reg2_PC_plus4;
-  reg [31:0] reg2_aligned_address;
-  reg [3:0] reg2_mask;
-  reg reg2_byte_hw_unsigned;
-  reg [31:0] reg2_alu_result;
+  reg [31:0] reg0_aligned_address;
+  reg [3:0] reg0_mask;
+  reg reg0_byte_hw_unsigned;
+  reg [31:0] reg0_alu_result;
   reg [31:0] reg0_aligned_address; 
   reg [3:0] reg0_mask;
   reg reg0_byte_hw_unsigned;
@@ -460,7 +462,7 @@ wire [31:0] aligned_address;
   always @(posedge i_clk) begin
     if (i_rst) begin
       reg2_PC_plus4 <= 32'b0;
-      reg2_aligned_address <= 32'b0;
+      reg0_aligned_address <= 32'b0;
       reg0_mask <= 4'b0;
       reg0_byte_hw_unsigned <= 1'b0;
       reg0_ALU_result <= 32'b0;
@@ -474,7 +476,7 @@ wire [31:0] aligned_address;
 
     end else begin
       reg2_PC_plus4 <= reg1_PC_plus4;
-      reg2_aligned_address <= aligned_address;
+      reg0_aligned_address <= aligned_address;
       reg0_mask <= mask;
       reg0_byte_hw_unsigned <= byte_hw_unsigned;
       reg0_ALU_result <= ALU_result;
@@ -514,7 +516,6 @@ reg [31:0] reg2_immediate_val;
 reg [31:0] reg3_PC_plus4; 
 reg [3:0]  reg1_mask;
 reg reg1_byte_hw_unsigned;
-
 
 
 always @(posedge i_clk) begin
@@ -564,7 +565,7 @@ always @(posedge i_clk) begin
 THIS section still needs to be checked and filled in properly (some values are being used as placeholders for now)
 We can add extra output signals from modules to connect below 
 */
-  assign o_dmem_mask = mask; //this used to control half word/byte loads and write (set to full word only for now)
+  assign o_dmem_mask = reg0_mask; //this used to control half word/byte loads and write (set to full word only for now)
 
   assign o_retire_valid = (i_rst) ? 1'b0 : 1'b1;  //one instruction should be done every cycle
   assign o_retire_inst = reg3_curr_instruct;

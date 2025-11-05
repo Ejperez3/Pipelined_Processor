@@ -26,13 +26,6 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	Control
 
-} {} {}} C:/ECE552/Pipelined_Processor/rtl/S_extend.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/S_extend.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module S_extend
-
-Top level modules:
-	S_extend
-
 } {} {}} C:/ECE552/Pipelined_Processor/rtl/alu.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/alu.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module alu
