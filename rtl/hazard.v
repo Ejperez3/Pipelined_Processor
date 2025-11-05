@@ -4,7 +4,7 @@
 // Ex/MEM.WriteReg==IF/ID.RegisterRs1 or iF/ID.RegisterRs2
 
 // TODO: UPDATE FOR FORWARDING/BYPASSING LATER
-module hazard(
+module hazard (
     input wire [4:0] IF_ID_RS1,
     input wire [4:0] IF_ID_RS2,
 
@@ -20,17 +20,17 @@ module hazard(
     output wire Mux_sel
 );
 
-    if ((ID_EX_RegWrite && ((ID_EX_WriteReg == IF_ID_RS1) || (ID_EX_WriteReg == IF_ID_RS2))) ||
-        (EX_MEM_RegWrite && ((EX_MEM_WriteReg == IF_ID_RS1) || (EX_MEM_WriteReg == IF_ID_RS2)))
+  always @(*) begin
+    if ((ID_EX_RegWrite && ((ID_EX_WriteReg == IF_ID_RS1) || (ID_EX_WriteReg == IF_ID_RS2))) ||
+        (EX_MEM_RegWrite && ((EX_MEM_WriteReg == IF_ID_RS1) || (EX_MEM_WriteReg == IF_ID_RS2)))
     ) begin
-        assign PC_En = 0;
-        assign IF_ID_En = 0;
-        assign Mux_sel = 1;
+      PC_En = 0;
+      IF_ID_En = 0;
+      Mux_sel = 1;
     end else begin
-        assign PC_En = 1;
-        assign IF_ID_En = 1;
-        assign Mux_sel = 0;
+      PC_En = 1;
+      IF_ID_En = 1;
+      Mux_sel = 0;
     end
-
-
+  end
 endmodule
