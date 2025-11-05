@@ -129,7 +129,14 @@ module hart #(
     // the next program counter after the instruction is retired. For most
     // instructions, this is `o_retire_pc + 4`, but must be the branch or jump
     // target for *taken* branches and jumps.
-    output wire [31:0] o_retire_next_pc
+    output wire [31:0] o_retire_next_pc,
+
+    output wire [31:0] o_retire_dmem_addr,
+    output wire o_retire_dmem_ren,
+    output wire o_retire_dmem_wen,
+    output wire [3:0] o_retire_dmem_mask,
+    output wire [31:0] o_retire_dmem_wdata;
+    output wire [31:0] o_retire_dmem_rdata; 
 
 `ifdef RISCV_FORMAL
     `RVFI_OUTPUTS,
@@ -167,7 +174,7 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   wire [31:0] WB_DATA;  //data to be input into register file 
   wire IF_ID_En;  
 
-  reg [31:0] reg2_regWrite;
+  reg reg2_regWrite;
   reg [31:0] reg3_curr_instruct;
 
   /* 
@@ -512,7 +519,7 @@ reg reg1_byte_hw_unsigned;
 
 always @(posedge i_clk) begin
     if (i_rst)begin
-      reg2_regWrite         <= 32'd0;
+      reg2_regWrite         <= 1'd0;
       reg2_Data_sel_C       <= 2'd0;
       reg0_MEM_DATA         <= 32'd0; 
       reg1_ALU_result       <= 32'd0;
@@ -560,13 +567,13 @@ We can add extra output signals from modules to connect below
   assign o_dmem_mask = mask; //this used to control half word/byte loads and write (set to full word only for now)
 
   assign o_retire_valid = (i_rst) ? 1'b0 : 1'b1;  //one instruction should be done every cycle
-  assign o_retire_inst = curr_instruct;
+  assign o_retire_inst = reg3_curr_instruct;
   assign o_retire_trap = 1'b0;  // implement trap detection later
   assign o_retire_halt = (curr_instruct == 32'h00100073);  // ebreak
 
   // retire register addresses (taken directly from the instruction fields)
-  assign o_retire_rs1_raddr = curr_instruct[19:15];
-  assign o_retire_rs2_raddr = curr_instruct[24:20];
+  assign o_retire_rs1_raddr = reg3_curr_instruct[19:15];
+  assign o_retire_rs2_raddr = reg3_curr_instruct[24:20];
   assign o_retire_rd_waddr = rf_writeAddress;
 
   // retire register read data 
