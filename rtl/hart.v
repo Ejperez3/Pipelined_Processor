@@ -252,7 +252,7 @@ always @(posedge i_clk) begin
 
   //write adress should be 0 when instruction does not write to register 
   wire [4:0] rf_writeAddress;
-  assign rf_writeAddress = (regWrite) ? reg0_curr_instruct[11:7] : 5'b00000;
+  assign rf_writeAddress = (reg2_regWrite) ? reg0_curr_instruct[11:7] : 5'b00000;
 
  wire [31:0] WriteDataReg; 
   rf rf (
@@ -266,7 +266,7 @@ always @(posedge i_clk) begin
       .o_rs2_rdata(regData2),
 
       .i_rd_waddr(rf_writeAddress),
-      .i_rd_wen  (regWrite),
+      .i_rd_wen  (reg2_regWrite),
       .i_rd_wdata(WriteDataReg)
   );
 
@@ -402,7 +402,7 @@ S_extend dataEXT(
   .i_mask(mask),         
   .i_unsign(byte_hw_unsigned),
 
-  .i_Rs2Data(Mem_WD),   //register data input 
+  .i_Rs2Data(Mem_WD),                 //register data input 
   .o_Memdata(WriteDataMem),           //aligned output based on mask 
 
   .i_WB(WB_DATA),
@@ -410,16 +410,58 @@ S_extend dataEXT(
 );
 
 
+
+
+
+/* 
+ MEM/WB pipeline register  
+*/
+reg [31:0] reg2_regWrite;
+reg [1:0]  reg2_Data_sel_C;
+reg [31:0] reg0_MEM_DATA;
+reg [31:0] reg1_ALU_result;
+reg [31:0] reg2_immediate_val;
+reg [31:0] reg3_PC_plus4; 
+reg [3:0]  reg1_mask;
+reg reg1_byte_hw_unsigned;
+
+
+always @(posedge i_clk) begin
+    if (i_rst)begin
+      reg2_regWrite         <= 32'd0;
+      reg2_Data_sel_C       <= 2'd0;
+      reg0_MEM_DATA         <= 32'd0; 
+      reg1_ALU_result       <= 32'd0;
+      reg2_immediate_val    <= 32'd0;
+      reg3_PC_plus4         <= 32'd0;
+      reg1_mask             <= 4'd0;
+      reg1_byte_hw_unsigned <= 1'd0;
+
+    end else begin
+      reg2_regWrite         <= reg1_regWrite;
+      reg2_Data_sel_C       <= reg1_Data_sel_C; 
+      reg0_MEM_DATA         <= MEM_DATA;
+      reg1_ALU_result       <= reg0_ALU_result;
+      reg2_immediate_val    <= reg1_immediate_val; 
+      reg3_PC_plus4         <= reg2_PC_plus4;
+      reg1_mask             <= reg0_mask;
+      reg1_byte_hw_unsigned <= reg0_byte_hw_unsigned; 
+
+
+    end 
+ end
+
+
   /* 
  Instantiate WB section of proccesor 
 */
   WB writeback (
 
-      .i_MemData(MEM_DATA),  //input-  data coming from Memory
-      .i_AluRslt(ALU_result),  //input- ALU operation result 
-      .i_imm(immediate_val),  //input- output from immediate generator 
-      .i_PC4(PC_plus4),  //input- incremented PC (used to save jump return adress in register)
-      .i_MUXsel(Data_sel_C),  //input- MUX select signals coming from control unit 
+      .i_MemData(reg0_MEM_DATA),  //input-  data coming from Memory
+      .i_AluRslt(reg1_ALU_result),  //input- ALU operation result 
+      .i_imm(reg2_immediate_val),  //input- output from immediate generator 
+      .i_PC4(reg3_PC_plus4),  //input- incremented PC (used to save jump return adress in register)
+      .i_MUXsel(reg2_Data_sel_C),  //input- MUX select signals coming from control unit 
 
       .o_dataSel(WB_DATA)        //output- data selected from mux to feedback into write port of Register file
   );
