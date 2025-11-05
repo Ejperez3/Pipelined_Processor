@@ -22,7 +22,7 @@ module hazard (
 );
 
  wire hazard;
-assign hazard = valid_inst && (
+  assign hazard = valid_inst && (
                    (ID_EX_RegWrite && ((ID_EX_WriteReg == IF_ID_RS1) || (ID_EX_WriteReg == IF_ID_RS2))) ||
                    (EX_MEM_RegWrite && ((EX_MEM_WriteReg == IF_ID_RS1) || (EX_MEM_WriteReg == IF_ID_RS2)))
                  );
