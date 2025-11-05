@@ -275,7 +275,7 @@ Delcleration of any extra wires needed for connecting modules and for signals us
 
   //write adress should be 0 when instruction does not write to register 
   wire [4:0] rf_writeAddress;
-  assign rf_writeAddress = (regWrite) ? reg0_curr_instruct[11:7] : 5'b00000;
+  assign rf_writeAddress = (reg2_regWrite) ? reg0_curr_instruct[11:7] : 5'b00000;
 
   wire [31:0] WriteDataReg;
   rf rf (
@@ -289,7 +289,7 @@ Delcleration of any extra wires needed for connecting modules and for signals us
       .o_rs2_rdata(regData2),
 
       .i_rd_waddr(rf_writeAddress),
-      .i_rd_wen  (regWrite),
+      .i_rd_wen  (reg2_regWrite),
       .i_rd_wdata(WriteDataReg)
   );
 
@@ -297,6 +297,7 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   /* 
 Data passing trough pipeline  
 */
+<<<<<<< HEAD
   reg [31:0] reg1_PC_plus4;
   reg [31:0] reg1_current_PC;
   reg [31:0] reg0_immediate_val;
@@ -314,6 +315,25 @@ Data passing trough pipeline
   reg [2:0] reg0_ALUop_C;
   reg [3:0] reg0_func_val;
   reg [6:0] reg0_OP;
+=======
+reg [31:0] reg1_PC_plus4; 
+reg [31:0] reg1_current_PC; 
+reg [31:0] reg0_immediate_val; 
+reg [2:0]  reg0_func3_val;
+reg reg0_jal_C;  
+reg reg0_jalr_C; 
+reg reg0_branch_C; 
+reg reg0_regWrite; 
+reg reg0_MemRead_C;
+reg [1:0] reg0_Data_sel_C; 
+reg reg0_MemWrite_C; 
+reg [31:0] reg0_ALU_operand1;
+reg [31:0] reg0_ALU_operand2; 
+reg [31:0] reg0_Mem_WD; 
+reg [2:0]  reg0_ALUop_C; 
+reg [3:0] reg0_func_val;
+reg [6:0] reg0_OP; 
+>>>>>>> a320d899c2af16b55b73839e7d22a3a7298b444e
 
 
 
@@ -340,8 +360,13 @@ Data passing trough pipeline
       reg0_jalr_C        <= 1'd0;
       reg0_branch_C      <= 1'd0;
       reg0_regWrite      <= 1'd0;
+<<<<<<< HEAD
       reg0_MemRead_C     <= 1'd0;
       reg0_Data_sel_C    <= 1'd0;
+=======
+      reg0_MemRead_C     <= 1'd0; 
+      reg0_Data_sel_C    <= 2'd0; 
+>>>>>>> a320d899c2af16b55b73839e7d22a3a7298b444e
       reg0_MemWrite_C    <= 1'd0;
       reg0_ALU_operand1  <= 32'd0;
       reg0_ALU_operand2  <= 32'd0;
@@ -396,9 +421,30 @@ Data passing trough pipeline
   assign JB_PC = (PC_MUX_SEL[1]) ? PC_offset : ALU_result;
 
 
+<<<<<<< HEAD
   wire [31:0] aligned_address;
   wire byte_hw_unsigned;
   wire [3:0] mask;
+=======
+
+
+
+S_extend dataEXT(
+  .i_mask(mask),         
+  .i_unsign(byte_hw_unsigned),
+
+  .i_Rs2Data(Mem_WD),                 //register data input 
+  .o_Memdata(WriteDataMem),           //aligned output based on mask 
+
+  .i_WB(WB_DATA),
+  .o_regData(WriteDataReg)
+);
+
+
+wire [31:0] aligned_address;
+wire byte_hw_unsigned;
+wire [3:0] mask;
+>>>>>>> a320d899c2af16b55b73839e7d22a3a7298b444e
   mask_gen mask_gen (
       .address(ALU_result),
       .func3(reg0_func3_val),
@@ -413,42 +459,72 @@ Data passing trough pipeline
   EX/MEM Pipeline Register
   */
   reg [31:0] reg2_PC_plus4;
+<<<<<<< HEAD
   reg [31:0] reg2_aligned_address;
   reg [3:0] reg2_mask;
   reg reg2_byte_hw_unsigned;
   reg [31:0] reg2_alu_result;
+=======
+  reg [31:0] reg0_aligned_address; 
+  reg [3:0] reg0_mask;
+  reg reg0_byte_hw_unsigned;
+  reg [31:0] reg0_alu_result;
+  reg [31:0] reg1_immediate_val; 
+  reg reg1_regWrite; 
+  reg reg1_MemRead_C;
+  reg [1:0] reg1_Data_sel_C; 
+  reg reg1_MemWrite_C; 
+  reg [31:0] reg2_WriteDataMem; 
+
+>>>>>>> a320d899c2af16b55b73839e7d22a3a7298b444e
   always @(posedge i_clk) begin
     if (i_rst) begin
       reg2_PC_plus4 <= 32'b0;
       reg2_aligned_address <= 32'b0;
-      reg2_mask <= 4'b0;
-      reg2_byte_hw_unsigned <= 1'b0;
-      reg2_alu_result <= 32'b0;
+      reg0_mask <= 4'b0;
+      reg0_byte_hw_unsigned <= 1'b0;
+      reg0_alu_result <= 32'b0;
+      reg1_immediate_val <= 32'd0;
+      reg1_regWrite <= 1'd0;
+      reg1_MemRead_C <= 1'd0;
+      reg1_Data_sel_C <= 2'd0;
+      reg1_MemWrite_C <= 1'd0;
+      reg2_WriteDataMem <= 32'd0;
+
     end else begin
       reg2_PC_plus4 <= reg1_PC_plus4;
       reg2_aligned_address <= aligned_address;
-      reg2_mask <= mask;
-      reg2_byte_hw_unsigned <= byte_hw_unsigned;
-      reg2_alu_result <= ALU_result;
+      reg0_mask <= mask;
+      reg0_byte_hw_unsigned <= byte_hw_unsigned;
+      reg0_alu_result <= ALU_result;
+      reg1_immediate_val <= reg0_immediate_val;
+      reg1_regWrite <= reg0_regWrite;
+      reg1_MemRead_C <= reg0_MemRead_C;
+      reg1_Data_sel_C <= reg0_Data_sel_C;
+      reg1_MemWrite_C <= reg0_MemWrite_C;
+      reg2_WriteDataMem <= WriteDataMem;
     end
-
-
   end
-
 
   /* 
  Instantiate MEM section of proccesor  (actual memory access done outside MEM module)
 */
 
 
+<<<<<<< HEAD
   wire [31:0] WriteDataMem;
   assign o_dmem_addr = aligned_address;  //assign memory adress port to ALU result  
+=======
+  wire [31:0] WriteDataMem; 
+  assign o_dmem_addr = reg0_aligned_address;  //assign memory adress port to ALU result  
+>>>>>>> a320d899c2af16b55b73839e7d22a3a7298b444e
   assign o_dmem_ren  = MemRead_C;   //assign Memory Read enable signal 
   assign o_dmem_wen  = MemWrite_C;  //assign Memory Write enable signal 
-  assign o_dmem_wdata = WriteDataMem;     //assign Memory Write data port to register output #2
+  assign o_dmem_wdata = reg2_WriteDataMem;     //assign Memory Write data port to register output #2
   assign MEM_DATA = i_dmem_rdata;    //data returned from memory 
 
 
+<<<<<<< HEAD
   S_extend dataEXT (
       .i_mask  (mask),
       .i_unsign(byte_hw_unsigned),
@@ -459,6 +535,51 @@ Data passing trough pipeline
       .i_WB(WB_DATA),
       .o_regData(WriteDataReg)
   );
+=======
+
+
+
+
+
+
+/* 
+ MEM/WB pipeline register  
+*/
+reg [31:0] reg2_regWrite;
+reg [1:0]  reg2_Data_sel_C;
+reg [31:0] reg0_MEM_DATA;
+reg [31:0] reg1_ALU_result;
+reg [31:0] reg2_immediate_val;
+reg [31:0] reg3_PC_plus4; 
+reg [3:0]  reg1_mask;
+reg reg1_byte_hw_unsigned;
+
+
+always @(posedge i_clk) begin
+    if (i_rst)begin
+      reg2_regWrite         <= 32'd0;
+      reg2_Data_sel_C       <= 2'd0;
+      reg0_MEM_DATA         <= 32'd0; 
+      reg1_ALU_result       <= 32'd0;
+      reg2_immediate_val    <= 32'd0;
+      reg3_PC_plus4         <= 32'd0;
+      reg1_mask             <= 4'd0;
+      reg1_byte_hw_unsigned <= 1'd0;
+
+    end else begin
+      reg2_regWrite         <= reg1_regWrite;
+      reg2_Data_sel_C       <= reg1_Data_sel_C; 
+      reg0_MEM_DATA         <= MEM_DATA;
+      reg1_ALU_result       <= reg0_ALU_result;
+      reg2_immediate_val    <= reg1_immediate_val; 
+      reg3_PC_plus4         <= reg2_PC_plus4;
+      reg1_mask             <= reg0_mask;
+      reg1_byte_hw_unsigned <= reg0_byte_hw_unsigned; 
+
+
+    end 
+ end
+>>>>>>> a320d899c2af16b55b73839e7d22a3a7298b444e
 
 
   /* 
@@ -466,11 +587,11 @@ Data passing trough pipeline
 */
   WB writeback (
 
-      .i_MemData(MEM_DATA),  //input-  data coming from Memory
-      .i_AluRslt(ALU_result),  //input- ALU operation result 
-      .i_imm(immediate_val),  //input- output from immediate generator 
-      .i_PC4(PC_plus4),  //input- incremented PC (used to save jump return adress in register)
-      .i_MUXsel(Data_sel_C),  //input- MUX select signals coming from control unit 
+      .i_MemData(reg0_MEM_DATA),  //input-  data coming from Memory
+      .i_AluRslt(reg1_ALU_result),  //input- ALU operation result 
+      .i_imm(reg2_immediate_val),  //input- output from immediate generator 
+      .i_PC4(reg3_PC_plus4),  //input- incremented PC (used to save jump return adress in register)
+      .i_MUXsel(reg2_Data_sel_C),  //input- MUX select signals coming from control unit 
 
       .o_dataSel(WB_DATA)        //output- data selected from mux to feedback into write port of Register file
   );
