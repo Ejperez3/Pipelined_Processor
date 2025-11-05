@@ -2,11 +2,11 @@
 // Branch control Module
 // as per schematic, bits are read from
 // right to left (2 mux's)
-//
-// 00: o_result rom ALU
-// 10: o_result from ALU
-// 01: PC+imm
-// 11: PC+4
+//00   PC+4
+//10   PC+4
+//01   JUMP o_result from ALU
+//11   Branch PC+Imm
+
 module branch (
     input wire [2:0] func3,
     input wire jal,
@@ -19,14 +19,14 @@ module branch (
 );
 
   assign out=
-    (jal)?(2'b10):
-    (jalr)?(2'b00): //DOUBLE CHECK THIS: SHOULD BE OUTPUT OF REGISTER, IE THROUGH ALU
-    (branch & func3==3'b000)?(eq?  2'b10: 2'b11):
-    (branch & func3==3'b001)?(~eq ? 2'b10: 2'b11):
-    (branch & func3==3'b100)?(slt ? 2'b10: 2'b11):
-    (branch & func3==3'b101)?((~slt || eq) ? 2'b10:2'b11):
-    (branch & func3==3'b110)?(slt ? 2'b10 : 2'b11) :
-    (branch & func3==3'b111)?((~slt||eq) ? 2'b10:2'b11):
-    2'b11;
+    (jal)?(2'b01):
+    (jalr)?(2'b01): //DOUBLE CHECK THIS: SHOULD BE OUTPUT OF REGISTER, IE THROUGH ALU
+    (branch & func3==3'b000)? (eq?  2'b11: 2'b00):
+    (branch & func3==3'b001)? (~eq ? 2'b11: 2'b00):
+    (branch & func3==3'b100)? (slt ? 2'b11: 2'b00):
+    (branch & func3==3'b101)? ((~slt || eq) ? 2'b11:2'b00):
+    (branch & func3==3'b110)? (slt ? 2'b11 : 2'b00) :
+    (branch & func3==3'b111)? ((~slt||eq) ? 2'b11:2'b00):
+    2'b00;
 endmodule
 `default_nettype wire

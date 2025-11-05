@@ -211,19 +211,23 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   reg [31:0] reg0_PC_plus4;
   reg [31:0] reg0_current_PC;
   reg [31:0] reg0_curr_instruct;
+  reg reg0_retire_valid; 
   always @(posedge i_clk) begin
     if (i_rst) begin
       reg0_PC_plus4      <= 32'd0;
       reg0_current_PC    <= 32'd0;
       reg0_curr_instruct <= 32'd0;
+      reg0_retire_valid  <= 1'd0; 
     end else if (IF_ID_En) begin
       reg0_PC_plus4      <= reg0_PC_plus4;
       reg0_current_PC    <= reg0_current_PC;
       reg0_curr_instruct <= reg0_curr_instruct;
+      reg0_retire_valid  <= reg0_retire_valid; 
     end else begin
       reg0_PC_plus4      <= PC_plus4;
       reg0_current_PC    <= current_PC;
       reg0_curr_instruct <= curr_instruct;
+      reg0_retire_valid  <= 1'd1; 
     end
   end
   wire [4:0] IF_ID_RS1;
@@ -340,6 +344,7 @@ reg[4:0] IF_ID_RegisterRs1;
 reg[4:0] IF_ID_RegisterRs2;
 reg[4:0] IF_ID_RegisterRsd;
 reg[31:0] reg1_curr_instruct;
+reg reg1_retire_valid; 
 
   //include mux to control WB, M and EX inputs 
 
@@ -362,7 +367,8 @@ reg[31:0] reg1_curr_instruct;
       reg0_ALUop_C       <= 3'd0;
       reg0_func_val      <= 4'd0;
       reg0_OP            <= 7'd0;
-      reg1_curr_instruct <= 32'd0;    
+      reg1_curr_instruct <= 32'd0;
+      reg1_retire_valid  <= 1'd0;     
 
     end else begin
       reg1_current_PC    <= reg0_current_PC;
@@ -383,6 +389,7 @@ reg[31:0] reg1_curr_instruct;
       reg0_func_val      <= func_val;
       reg0_OP            <= reg0_curr_instruct[6:0];
       reg1_curr_instruct <= reg0_curr_instruct; 
+      reg1_retire_valid  <= reg0_retire_valid;
     end 
  end
 
@@ -457,6 +464,8 @@ wire [31:0] aligned_address;
   reg reg1_MemWrite_C; 
   reg [31:0] reg0_WriteDataMem; 
   reg [31:0] reg2_curr_instruct;
+  reg reg2_retire_valid;
+  reg reg2_current_PC;
 
   always @(posedge i_clk) begin
     if (i_rst) begin
@@ -471,7 +480,9 @@ wire [31:0] aligned_address;
       reg1_Data_sel_C <= 2'd0;
       reg1_MemWrite_C <= 1'd0;
       reg0_WriteDataMem <= 32'd0;
-      reg2_curr_instruct <= 32'd0; 
+      reg2_curr_instruct <= 32'd0;
+      reg2_retire_valid  <= 1'd0;
+      reg2_current_PC    <= 32'd0;   
 
     end else begin
       reg2_PC_plus4 <= reg1_PC_plus4;
@@ -486,6 +497,8 @@ wire [31:0] aligned_address;
       reg1_MemWrite_C <= reg0_MemWrite_C;
       reg0_WriteDataMem <= WriteDataMem;
       reg2_curr_instruct <= reg1_curr_instruct;
+      reg2_retire_valid  <= reg1_retire_valid;
+      reg2_current_PC    <= reg1_current_PC; 
     end
   end
 
@@ -513,7 +526,8 @@ reg [31:0] reg0_MEM_DATA;
 reg [31:0] reg1_ALU_result;
 reg [31:0] reg2_immediate_val;
 reg [31:0] reg3_PC_plus4; 
-
+reg reg3_retire_valid;
+reg reg3_current_PC;
 
 
 always @(posedge i_clk) begin
@@ -527,7 +541,8 @@ always @(posedge i_clk) begin
       reg1_mask             <= 4'd0;
       reg1_byte_hw_unsigned <= 1'd0;
       reg3_curr_instruct    <= 32'd0; 
-
+      reg3_retire_valid     <= 1'd0;
+      reg3_current_PC       <= 32'd0;  
     end else begin
       reg2_regWrite         <= reg1_regWrite;
       reg2_Data_sel_C       <= reg1_Data_sel_C; 
@@ -538,8 +553,8 @@ always @(posedge i_clk) begin
       reg1_mask             <= reg0_mask;
       reg1_byte_hw_unsigned <= reg0_byte_hw_unsigned;
       reg3_curr_instruct    <= reg2_curr_instruct; 
-
-
+      reg3_retire_valid     <= reg2_retire_valid;
+      reg3_current_PC       <= reg2_current_PC;
     end 
  end
 
@@ -565,10 +580,11 @@ We can add extra output signals from modules to connect below
 */
   assign o_dmem_mask = reg0_mask; //this used to control half word/byte loads and write (set to full word only for now)
 
-  assign o_retire_valid = (i_rst) ? 1'b0 : 1'b1;  //one instruction should be done every cycle
+
+  assign o_retire_valid = reg3_retire_valid &  ~i_rst; //one instruction should be done every cycle
   assign o_retire_inst = reg3_curr_instruct;
   assign o_retire_trap = 1'b0;  // implement trap detection later
-  assign o_retire_halt = (curr_instruct == 32'h00100073);  // ebreak
+  assign o_retire_halt = (reg3_curr_instruct == 32'h00100073);  // ebreak
 
   // retire register addresses (taken directly from the instruction fields)
   assign o_retire_rs1_raddr = reg3_curr_instruct[19:15];
@@ -584,8 +600,12 @@ We can add extra output signals from modules to connect below
   assign o_retire_rd_wdata = WriteDataReg;
 
   // retire PC values
-  assign o_retire_pc = current_PC;
+  assign o_retire_pc = reg3_current_PC;
   assign o_retire_next_pc = next_PC;
+
+
+
+
 
 endmodule
 `default_nettype wire
