@@ -271,7 +271,6 @@ always @(posedge i_clk) begin
  end
 
 
-
   /* 
  Instantiate EX section of proccesor 
 */
@@ -307,6 +306,35 @@ wire [3:0] mask;
       .mask(mask),
       .opcode(curr_instruct[6:0])
   );
+
+
+  /*
+  EX/MEM Pipeline Register
+  */
+  reg [31:0] reg2_PC_plus4; 
+  reg [31:0] reg2_aligned_address;
+  reg [3:0] reg2_mask;
+  reg reg2_byte_hw_unsigned;
+  reg [31:0] reg2_alu_result;
+  always @(posedge i_clk) begin
+    if (i_rst) begin 
+      reg2_PC_plus4 <= 32'b0;
+      reg2_aligned_address <= 32'b0;
+      reg2_mask <= 4'b0;
+      reg2_byte_hw_unsigned <= 1'b0;
+      reg2_alu_result <= 32'b0;
+    end else begin
+      reg2_PC_plus4 <= reg1_PC_plus4;
+      reg2_aligned_address <= aligned_address;
+      reg2_mask <= mask;
+      reg2_byte_hw_unsigned <= byte_hw_unsigned;
+      reg2_alu_result <= ALU_result;
+    end
+
+
+  end
+
+
   /* 
  Instantiate MEM section of proccesor  (actual memory access done outside MEM module)
 */
