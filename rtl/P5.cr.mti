@@ -41,12 +41,12 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	alu
 
-} {} {}} C:/ECE552/Pipelined_Processor/rtl/hazard.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/hazard.v
+} {} {}} C:/ECE552/Pipelined_Processor/rtl/branch.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/branch.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module hazard
+-- Compiling module branch
 
 Top level modules:
-	hazard
+	branch
 
 } {} {}} C:/ECE552/Pipelined_Processor/rtl/WB.v {1 {vlog -work work -stats=none C:/ECE552/Pipelined_Processor/rtl/WB.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020

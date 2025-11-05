@@ -200,9 +200,6 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   assign curr_instruct = i_imem_rdata;  //assign current instruction to the output from instruction memory
 
 
-  //input
-
-
   /* 
  IF/ID Piepline Register
  Include NOP control
@@ -219,15 +216,15 @@ Delcleration of any extra wires needed for connecting modules and for signals us
       reg0_curr_instruct <= 32'd0;
       reg0_retire_valid  <= 1'd0; 
     end else if (IF_ID_En) begin
+      reg0_PC_plus4      <= PC_plus4;
+      reg0_current_PC    <= current_PC;
+      reg0_curr_instruct <= curr_instruct;
+      reg0_retire_valid  <= 1'd1;
+    end else begin 
       reg0_PC_plus4      <= reg0_PC_plus4;
       reg0_current_PC    <= reg0_current_PC;
       reg0_curr_instruct <= reg0_curr_instruct;
       reg0_retire_valid  <= reg0_retire_valid; 
-    end else begin
-      reg0_PC_plus4      <= PC_plus4;
-      reg0_current_PC    <= current_PC;
-      reg0_curr_instruct <= curr_instruct;
-      reg0_retire_valid  <= 1'd1; 
     end
   end
   wire [4:0] IF_ID_RS1;
@@ -240,6 +237,8 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   wire [4:0] EX_MEM_WriteReg;
   wire EX_MEM_RegWrite;
   reg reg0_regWrite;
+  reg [31:0] reg1_curr_instruct;
+  reg [31:0] reg2_curr_instruct;
 
   //output
   wire PC_En;
@@ -248,8 +247,8 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   hazard haz (
       .IF_ID_RS1(reg0_curr_instruct[19:15]),
       .IF_ID_RS2(reg0_curr_instruct[24:20]),
-      .ID_EX_RegWrite(reg0_regWrite),
-      .EX_MEM_WriteReg(),
+      .ID_EX_RegWrite(reg1_curr_instruct[11:7]),
+      .EX_MEM_WriteReg(reg2_curr_instruct[11:7]),
       .PC_En(PC_En),
       .IF_ID_En(IF_ID_En),
       .Mux_sel(Mux_sel)
@@ -273,7 +272,6 @@ Delcleration of any extra wires needed for connecting modules and for signals us
       .o_RegWrite (regWrite),
       .i_regData1 (regData1),
       .i_regData2 (regData2),
-
       .o_jal     (jal_C),          //output- from control unit
       .o_jalr    (jalr_C),         //output- from control unit
       .o_branch  (branch_C),       //output- from control unit
@@ -310,8 +308,9 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   );
 
 
-  /* 
-Data passing trough pipeline  
+
+/* 
+ ID/EX Piepline Register
 */
   reg [31:0] reg1_PC_plus4;
   reg [31:0] reg1_current_PC;
@@ -330,21 +329,7 @@ Data passing trough pipeline
   reg [3:0] reg0_func_val;
   reg [6:0] reg0_OP;
 
-
-
-
-  /* 
- ID/EX Piepline Register
- //Outputs Rd, Rs1, Rs2,
-*/
-reg[31:0] rsd_reg;
-reg[31:0] rs1_reg;
-reg[31:0] rs2_reg;
-reg[4:0] IF_ID_RegisterRs1;
-reg[4:0] IF_ID_RegisterRs2;
-reg[4:0] IF_ID_RegisterRsd;
-reg[31:0] reg1_curr_instruct;
-reg reg1_retire_valid; 
+  reg reg1_retire_valid; 
 
   //include mux to control WB, M and EX inputs 
 
@@ -463,7 +448,6 @@ wire [31:0] aligned_address;
   reg [1:0] reg1_Data_sel_C; 
   reg reg1_MemWrite_C; 
   reg [31:0] reg0_WriteDataMem; 
-  reg [31:0] reg2_curr_instruct;
   reg reg2_retire_valid;
   reg reg2_current_PC;
 
@@ -509,7 +493,6 @@ wire [31:0] aligned_address;
 
 
 
-  assign o_dmem_addr = aligned_address;  //assign memory adress port to ALU result  
   assign o_dmem_addr = reg0_aligned_address;  //assign memory adress port to ALU result  
   assign o_dmem_ren  = reg1_MemRead_C;   //assign Memory Read enable signal 
   assign o_dmem_wen  = reg1_MemWrite_C;  //assign Memory Write enable signal 
@@ -528,6 +511,10 @@ reg [31:0] reg2_immediate_val;
 reg [31:0] reg3_PC_plus4; 
 reg reg3_retire_valid;
 reg reg3_current_PC;
+reg [31:0] reg1_aligned_address;
+reg reg2_MemRead_C;
+reg reg2_MemWrite_C;
+reg [31:0] reg1_WriteDataMem;
 
 
 always @(posedge i_clk) begin
@@ -543,6 +530,10 @@ always @(posedge i_clk) begin
       reg3_curr_instruct    <= 32'd0; 
       reg3_retire_valid     <= 1'd0;
       reg3_current_PC       <= 32'd0;  
+      reg1_aligned_address  <= 32'd0;
+      reg2_MemRead_C        <= 1'd0; 
+      reg2_MemWrite_C       <= 1'd0;
+      reg1_WriteDataMem     <= 32'd0;  
     end else begin
       reg2_regWrite         <= reg1_regWrite;
       reg2_Data_sel_C       <= reg1_Data_sel_C; 
@@ -555,6 +546,10 @@ always @(posedge i_clk) begin
       reg3_curr_instruct    <= reg2_curr_instruct; 
       reg3_retire_valid     <= reg2_retire_valid;
       reg3_current_PC       <= reg2_current_PC;
+      reg1_aligned_address  <= reg0_aligned_address;
+      reg2_MemRead_C        <= reg1_MemRead_C;
+      reg2_MemWrite_C       <= reg1_MemWrite_C;
+      reg1_WriteDataMem     <= reg0_WriteDataMem; 
     end 
  end
 
@@ -584,7 +579,7 @@ We can add extra output signals from modules to connect below
   assign o_retire_valid = reg3_retire_valid &  ~i_rst; //one instruction should be done every cycle
   assign o_retire_inst = reg3_curr_instruct;
   assign o_retire_trap = 1'b0;  // implement trap detection later
-  assign o_retire_halt = (reg3_curr_instruct == 32'h00100073);  // ebreak
+  assign o_retire_halt = (reg0_curr_instruct == 32'h00100073);  // detect ebreak in ID stage 
 
   // retire register addresses (taken directly from the instruction fields)
   assign o_retire_rs1_raddr = reg3_curr_instruct[19:15];
@@ -603,8 +598,12 @@ We can add extra output signals from modules to connect below
   assign o_retire_pc = reg3_current_PC;
   assign o_retire_next_pc = next_PC;
 
-
-
+  assign o_retire_dmem_addr = reg1_aligned_address; 
+  assign o_retire_dmem_ren = reg2_MemRead_C;
+  assign o_retire_dmem_wen = reg2_MemWrite_C;
+  assign o_retire_dmem_mask = reg1_mask; 
+  assign o_retire_dmem_wdata = reg1_WriteDataMem; 
+  assign o_retire_dmem_rdata = reg0_MEM_DATA; 
 
 
 endmodule
