@@ -283,7 +283,7 @@ reg reg0_jalr_C;
 reg reg0_branch_C; 
 reg reg0_regWrite; 
 reg reg0_MemRead_C;
-reg reg0_Data_sel_C; 
+reg [1:0] reg0_Data_sel_C; 
 reg reg0_MemWrite_C; 
 reg [31:0] reg0_ALU_operand1;
 reg [31:0] reg0_ALU_operand2; 
@@ -318,7 +318,7 @@ always @(posedge i_clk) begin
       reg0_branch_C      <= 1'd0;
       reg0_regWrite      <= 1'd0;
       reg0_MemRead_C     <= 1'd0; 
-      reg0_Data_sel_C    <= 1'd0; 
+      reg0_Data_sel_C    <= 2'd0; 
       reg0_MemWrite_C    <= 1'd0;
       reg0_ALU_operand1  <= 32'd0;
       reg0_ALU_operand2  <= 32'd0;
@@ -347,7 +347,6 @@ always @(posedge i_clk) begin
       reg0_OP            <= reg0_curr_instruct[6:0]; 
     end 
  end
-
 
 
   /* 
@@ -385,6 +384,54 @@ wire [3:0] mask;
       .mask(mask),
       .opcode(reg0_OP)
   );
+
+
+  /*
+  EX/MEM Pipeline Register
+  */
+  reg [31:0] reg2_PC_plus4;
+  reg [31:0] reg2_aligned_address; 
+  reg [3:0] reg2_mask;
+  reg reg2_byte_hw_unsigned;
+  reg [31:0] reg2_alu_result;
+  reg [31:0] reg2_immediate_val; 
+  reg reg2_regWrite; 
+  reg reg2_MemRead_C;
+  reg [1:0] reg2_Data_sel_C; 
+  reg reg2_MemWrite_C; 
+  reg [31:0] reg2_sign_extend; 
+  always @(posedge i_clk) begin
+    if (i_rst) begin 
+      reg2_PC_plus4 <= 32'b0;
+      reg2_aligned_address <= 32'b0;
+      reg2_mask <= 4'b0;
+      reg2_byte_hw_unsigned <= 1'b0;
+      reg2_alu_result <= 32'b0;
+      reg2_immediate_val <= 32'd0;
+      reg2_regWrite <= 1'd0;
+      reg2_MemRead_C <= 1'd0;
+      reg2_Data_sel_C <= 2'd0;
+      reg2_MemWrite_C <= 1'd0;
+      reg2_sign_extend <= 32'd0;
+
+    end else begin
+      reg2_PC_plus4 <= reg1_PC_plus4;
+      reg2_aligned_address <= aligned_address;
+      reg2_mask <= mask;
+      reg2_byte_hw_unsigned <= byte_hw_unsigned;
+      reg2_alu_result <= ALU_result;
+      reg2_immediate_val <= reg0_immediate_val;
+      reg2_regWrite <= reg0_regWrite;
+      reg2_MemRead_C <= reg0_MemRead_C;
+      reg2_Data_sel_C <= reg0_Data_sel_C;
+      reg2_MemWrite_C <= reg0_MemWrite_C;
+      reg2_sign_extend <= WriteDataMem;
+    end
+
+
+  end
+
+
   /* 
  Instantiate MEM section of proccesor  (actual memory access done outside MEM module)
 */
