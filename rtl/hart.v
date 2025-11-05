@@ -169,7 +169,7 @@ Delcleration of any extra wires needed for connecting modules and for signals us
 
   reg [31:0] reg2_regWrite;
   reg [31:0] reg3_curr_instruct;
-  
+
   /* 
  Instantiate IF section of proccesor 
 */
@@ -228,6 +228,7 @@ Delcleration of any extra wires needed for connecting modules and for signals us
 
   wire [4:0] EX_MEM_WriteReg;
   wire EX_MEM_RegWrite;
+  reg reg0_regWrite;
 
   //output
   wire PC_En;
@@ -308,7 +309,6 @@ Data passing trough pipeline
   reg reg0_jal_C;
   reg reg0_jalr_C;
   reg reg0_branch_C;
-  reg reg0_regWrite;
   reg reg0_MemRead_C;
   reg reg0_Data_sel_C;
   reg reg0_MemWrite_C;
@@ -341,7 +341,7 @@ reg[31:0] reg1_curr_instruct;
       reg1_current_PC    <= 32'd0;
       reg1_PC_plus4      <= 32'd0;
       reg0_immediate_val <= 32'd0;
-      reg0_func3_val     <= 3'd000;
+      reg0_func3_val     <= 3'd0;
       reg0_jal_C         <= 1'd0;
       reg0_jalr_C        <= 1'd0;
       reg0_branch_C      <= 1'd0;
@@ -403,7 +403,9 @@ reg[31:0] reg1_curr_instruct;
   
 assign JB_PC = (PC_MUX_SEL[1]) ? PC_offset :  ALU_result;
 
-
+wire byte_hw_unsigned;
+wire [3:0] mask;
+wire [31:0] WriteDataMem;
 
 S_extend dataEXT(
   .i_mask(mask),         
@@ -418,8 +420,6 @@ S_extend dataEXT(
 
 
 wire [31:0] aligned_address;
-wire byte_hw_unsigned;
-wire [3:0] mask;
   mask_gen mask_gen (
       .address(ALU_result),
       .func3(reg0_func3_val),
@@ -441,7 +441,7 @@ wire [3:0] mask;
   reg [31:0] reg0_aligned_address; 
   reg [3:0] reg0_mask;
   reg reg0_byte_hw_unsigned;
-  reg [31:0] reg0_alu_result;
+  reg [31:0] reg0_ALU_result;
   reg [31:0] reg1_immediate_val; 
   reg reg1_regWrite; 
   reg reg1_MemRead_C;
@@ -456,7 +456,7 @@ wire [3:0] mask;
       reg2_aligned_address <= 32'b0;
       reg0_mask <= 4'b0;
       reg0_byte_hw_unsigned <= 1'b0;
-      reg0_alu_result <= 32'b0;
+      reg0_ALU_result <= 32'b0;
       reg1_immediate_val <= 32'd0;
       reg1_regWrite <= 1'd0;
       reg1_MemRead_C <= 1'd0;
@@ -470,7 +470,7 @@ wire [3:0] mask;
       reg2_aligned_address <= aligned_address;
       reg0_mask <= mask;
       reg0_byte_hw_unsigned <= byte_hw_unsigned;
-      reg0_alu_result <= ALU_result;
+      reg0_ALU_result <= ALU_result;
       reg1_immediate_val <= reg0_immediate_val;
       reg1_regWrite <= reg0_regWrite;
       reg1_MemRead_C <= reg0_MemRead_C;
@@ -487,27 +487,13 @@ wire [3:0] mask;
 
 
 
-  wire [31:0] WriteDataMem;
+
   assign o_dmem_addr = aligned_address;  //assign memory adress port to ALU result  
-  wire [31:0] WriteDataMem; 
   assign o_dmem_addr = reg0_aligned_address;  //assign memory adress port to ALU result  
   assign o_dmem_ren  = reg1_MemRead_C;   //assign Memory Read enable signal 
   assign o_dmem_wen  = reg1_MemWrite_C;  //assign Memory Write enable signal 
-  assign o_dmem_wdata = reg2_WriteDataMem;     //assign Memory Write data port to register output #2
+  assign o_dmem_wdata = reg0_WriteDataMem;     //assign Memory Write data port to register output #2
   assign MEM_DATA = i_dmem_rdata;    //data returned from memory 
-
-
-  S_extend dataEXT (
-      .i_mask  (mask),
-      .i_unsign(byte_hw_unsigned),
-
-      .i_Rs2Data(Mem_WD),       //register data input 
-      .o_Memdata(WriteDataMem), //aligned output based on mask 
-
-      .i_WB(WB_DATA),
-      .o_regData(WriteDataReg)
-  );
-
 
 
 
