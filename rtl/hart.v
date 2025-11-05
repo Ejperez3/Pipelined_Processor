@@ -140,7 +140,7 @@ module hart #(
 Delcleration of any extra wires needed for connecting modules and for signals used across modules 
 */
 
-  wire [31:0] JB_PC; 
+  wire [31:0] JB_PC;
   wire [31:0] current_PC;  //will hold current PC value 
   wire [31:0] next_PC;  //holds the adress to be updated in PC next 
   wire [31:0] PC_plus4;  //will hold PC+4 value
@@ -171,10 +171,11 @@ Delcleration of any extra wires needed for connecting modules and for signals us
 
 
   // choose between PC+4 or jump/Branch PC (By default should be PC+4)
-  assign next_PC = (PC_MUX_SEL[0])? JB_PC : PC_plus4;
-  
+  assign next_PC = (PC_MUX_SEL[0]) ? JB_PC : PC_plus4;
+
 
   IF fetch_inst (
+      .NOP(IF_ID_En),
       .i_clk   (i_clk),   //input- clk to control PC update
       .i_rst   (i_rst),   //input- used to reset PC to starting value
       .i_NextPC(next_PC), //input- next PC value                           
@@ -187,36 +188,58 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   assign curr_instruct = i_imem_rdata;  //assign current instruction to the input from instruction memory
 
 
+  //input
 
-/* 
+
+  /* 
  IF/ID Piepline Register
  Include NOP control
-
  TODO: EXPECTS INPUT OF NOP
 */
-reg [31:0] reg0_PC_plus4; 
-reg [31:0] reg0_current_PC;  
-reg [31:0] reg0_curr_instruct;
-always @(posedge i_clk) begin
-  if (i_rst) begin
-    reg0_PC_plus4      <= 32'd0;
-    reg0_current_PC    <= 32'd0; 
-    reg0_curr_instruct <= 32'd0;
+  reg [31:0] reg0_PC_plus4;
+  reg [31:0] reg0_current_PC;
+  reg [31:0] reg0_curr_instruct;
+  always @(posedge i_clk) begin
+    if (i_rst) begin
+      reg0_PC_plus4      <= 32'd0;
+      reg0_current_PC    <= 32'd0;
+      reg0_curr_instruct <= 32'd0;
+    end else if (IF_ID_En) begin
+      reg0_PC_plus4      <= reg0_PC_plus4;
+      reg0_current_PC    <= reg0_current_PC;
+      reg0_curr_instruct <= reg0_curr_instruct;
+    end else begin
+      reg0_PC_plus4      <= PC_plus4;
+      reg0_current_PC    <= current_PC;
+      reg0_curr_instruct <= curr_instruct;
+    end
   end
-  else if (NOP)begin
-    reg0_PC_plus4      <= reg0_PC_plus4;
-    reg0_current_PC    <= reg0_current_PC; 
-    reg0_curr_instruct <= reg0_curr_instruct;
-  end
-  else  begin
-    reg0_PC_plus4      <= PC_plus4;
-    reg0_current_PC    <= current_PC; 
-    reg0_curr_instruct <= curr_instruct;
-  end
- end
+  wire [4:0] IF_ID_RS1;
+  wire [4:0] IF_ID_RS2;
 
+  //input
+  wire [4:0] ID_EX_WriteReg;
+  wire ID_EX_RegWrite;
 
-/* 
+  wire [4:0] EX_MEM_WriteReg;
+  wire EX_MEM_RegWrite;
+
+  //output
+  wire PC_En;
+  wire IF_ID_En;
+  wire Mux_sel;
+  //NOTE: diagram does NOT show this?
+  hazard haz (
+      .IF_ID_RS1(reg0_curr_instruct[19:15]),
+      .IF_ID_RS2(reg0_curr_instruct[24:20]),
+      .ID_EX_RegWrite(reg0_regWrite),
+      .EX_MEM_WriteReg(),
+      .PC_En(PC_En),
+      .IF_ID_En(IF_ID_En),
+      .Mux_sel(Mux_sel),
+  );
+
+  /* 
  Instantiate ID section of proccesor 
 */
 
@@ -227,8 +250,8 @@ always @(posedge i_clk) begin
   wire regWrite;
 
   ID decode_I (
-      .rst        (i_rst),          //input- to RF
-      .clk        (i_clk),          //input- to RF
+      .rst        (i_rst),               //input- to RF
+      .clk        (i_clk),               //input- to RF
       .i_instruct (reg0_curr_instruct),  //input- full instruction input
       .i_currentPC(reg0_current_PC),     //input- the current PC value (used for auipc instruction)
       .o_RegWrite (regWrite),
@@ -254,7 +277,7 @@ always @(posedge i_clk) begin
   wire [4:0] rf_writeAddress;
   assign rf_writeAddress = (regWrite) ? reg0_curr_instruct[11:7] : 5'b00000;
 
- wire [31:0] WriteDataReg; 
+  wire [31:0] WriteDataReg;
   rf rf (
       .i_clk(i_clk),
       .i_rst(i_rst),
@@ -271,82 +294,82 @@ always @(posedge i_clk) begin
   );
 
 
-/* 
+  /* 
 Data passing trough pipeline  
 */
-reg [31:0] reg1_PC_plus4; 
-reg [31:0] reg1_current_PC; 
-reg [31:0] reg0_immediate_val; 
-reg [2:0]  reg0_func3_val;
-reg reg0_jal_C;  
-reg reg0_jalr_C; 
-reg reg0_branch_C; 
-reg reg0_regWrite; 
-reg reg0_MemRead_C;
-reg reg0_Data_sel_C; 
-reg reg0_MemWrite_C; 
-reg [31:0] reg0_ALU_operand1;
-reg [31:0] reg0_ALU_operand2; 
-reg [31:0] reg0_Mem_WD; 
-reg [2:0]  reg0_ALUop_C; 
-reg [3:0] reg0_func_val;
-reg [6:0] reg0_OP; 
+  reg [31:0] reg1_PC_plus4;
+  reg [31:0] reg1_current_PC;
+  reg [31:0] reg0_immediate_val;
+  reg [2:0] reg0_func3_val;
+  reg reg0_jal_C;
+  reg reg0_jalr_C;
+  reg reg0_branch_C;
+  reg reg0_regWrite;
+  reg reg0_MemRead_C;
+  reg reg0_Data_sel_C;
+  reg reg0_MemWrite_C;
+  reg [31:0] reg0_ALU_operand1;
+  reg [31:0] reg0_ALU_operand2;
+  reg [31:0] reg0_Mem_WD;
+  reg [2:0] reg0_ALUop_C;
+  reg [3:0] reg0_func_val;
+  reg [6:0] reg0_OP;
 
 
 
-/* 
+  /* 
  ID/EX Piepline Register
  //Outputs Rd, Rs1, Rs2,
 */
-reg[31:0] rsd_reg;
-reg[31:0] rs1_reg;
-reg[31:0] rs2_reg;
-reg[4:0] IF_ID_RegisterRs1;
-reg[4:0] IF_ID_RegisterRs2;
-reg[4:0] IF_ID_RegisterRsd;
+  reg [31:0] rsd_reg;
+  reg [31:0] rs1_reg;
+  reg [31:0] rs2_reg;
+  reg [4:0] IF_ID_RegisterRs1;
+  reg [4:0] IF_ID_RegisterRs2;
+  reg [4:0] IF_ID_RegisterRsd;
 
-//include mux to control WB, M and EX inputs 
- 
-always @(posedge i_clk) begin
-    if (i_rst)begin
+  //include mux to control WB, M and EX inputs 
+
+  always @(posedge i_clk) begin
+    if (i_rst || Mux_sel) begin
       reg1_current_PC    <= 32'd0;
       reg1_PC_plus4      <= 32'd0;
-      reg0_immediate_val <= 32'd0; 
+      reg0_immediate_val <= 32'd0;
       reg0_func3_val     <= 3'd000;
-      reg0_jal_C         <= 1'd0; 
-      reg0_jalr_C        <= 1'd0; 
+      reg0_jal_C         <= 1'd0;
+      reg0_jalr_C        <= 1'd0;
       reg0_branch_C      <= 1'd0;
       reg0_regWrite      <= 1'd0;
-      reg0_MemRead_C     <= 1'd0; 
-      reg0_Data_sel_C    <= 1'd0; 
+      reg0_MemRead_C     <= 1'd0;
+      reg0_Data_sel_C    <= 1'd0;
       reg0_MemWrite_C    <= 1'd0;
       reg0_ALU_operand1  <= 32'd0;
       reg0_ALU_operand2  <= 32'd0;
       reg0_Mem_WD        <= 32'd0;
       reg0_ALUop_C       <= 3'd0;
       reg0_func_val      <= 4'd0;
-      reg0_OP            <= 7'd0;   
+      reg0_OP            <= 7'd0;
 
-    end else begin 
+    end else begin
       reg1_current_PC    <= reg0_current_PC;
       reg1_PC_plus4      <= reg0_PC_plus4;
-      reg0_immediate_val <= immediate_val; 
+      reg0_immediate_val <= immediate_val;
       reg0_func3_val     <= func3_val;
       reg0_jal_C         <= jal_C;
       reg0_jalr_C        <= jalr_C;
       reg0_branch_C      <= branch_C;
-      reg0_regWrite      <= regWrite; 
+      reg0_regWrite      <= regWrite;
       reg0_MemRead_C     <= MemRead_C;
-      reg0_Data_sel_C    <= Data_sel_C; 
+      reg0_Data_sel_C    <= Data_sel_C;
       reg0_MemWrite_C    <= MemWrite_C;
       reg0_ALU_operand1  <= ALU_operand1;
       reg0_ALU_operand2  <= ALU_operand2;
       reg0_Mem_WD        <= Mem_WD;
-      reg0_ALUop_C       <= ALUop_C; 
+      reg0_ALUop_C       <= ALUop_C;
       reg0_func_val      <= func_val;
-      reg0_OP            <= reg0_curr_instruct[6:0]; 
-    end 
- end
+      reg0_OP            <= reg0_curr_instruct[6:0];
+    end
+  end
 
 
   /* 
@@ -354,9 +377,9 @@ always @(posedge i_clk) begin
 */
   EX execute_I (
       .i_pc(reg1_current_PC),      //input- Current PC input should be added to immediate (used for branch instructions)
-      .func3(reg0_func3_val),         //input- func 3 input for branch logic block (branch.v file)
-      .i_jal(reg0_jal_C),      //input- control signal for branch logic block
-      .i_jalr(reg0_jalr_C),    //input- control signal for branch logic block
+      .func3(reg0_func3_val),  //input- func 3 input for branch logic block (branch.v file)
+      .i_jal(reg0_jal_C),  //input- control signal for branch logic block
+      .i_jalr(reg0_jalr_C),  //input- control signal for branch logic block
       .i_branch(reg0_branch_C),  //input- control signal for branch logic block
       .i_ALUOp(reg0_ALUop_C),  //input- input to ALU CTRL unit
       .i_op1(reg0_ALU_operand1),  //input- ALU operand1
@@ -369,13 +392,13 @@ always @(posedge i_clk) begin
       .o_inc_pc(PC_offset)          //output- The current PC + Immediate (used for branch adress calculation)
   );
 
-  
-assign JB_PC = (PC_MUX_SEL[1]) ? PC_offset :  ALU_result;
+
+  assign JB_PC = (PC_MUX_SEL[1]) ? PC_offset : ALU_result;
 
 
-wire [31:0] aligned_address;
-wire byte_hw_unsigned;
-wire [3:0] mask;
+  wire [31:0] aligned_address;
+  wire byte_hw_unsigned;
+  wire [3:0] mask;
   mask_gen mask_gen (
       .address(ALU_result),
       .func3(reg0_func3_val),
@@ -389,13 +412,13 @@ wire [3:0] mask;
   /*
   EX/MEM Pipeline Register
   */
-  reg [31:0] reg2_PC_plus4; 
+  reg [31:0] reg2_PC_plus4;
   reg [31:0] reg2_aligned_address;
   reg [3:0] reg2_mask;
   reg reg2_byte_hw_unsigned;
   reg [31:0] reg2_alu_result;
   always @(posedge i_clk) begin
-    if (i_rst) begin 
+    if (i_rst) begin
       reg2_PC_plus4 <= 32'b0;
       reg2_aligned_address <= 32'b0;
       reg2_mask <= 4'b0;
@@ -418,7 +441,7 @@ wire [3:0] mask;
 */
 
 
-  wire [31:0] WriteDataMem; 
+  wire [31:0] WriteDataMem;
   assign o_dmem_addr = aligned_address;  //assign memory adress port to ALU result  
   assign o_dmem_ren  = MemRead_C;   //assign Memory Read enable signal 
   assign o_dmem_wen  = MemWrite_C;  //assign Memory Write enable signal 
@@ -426,16 +449,16 @@ wire [3:0] mask;
   assign MEM_DATA = i_dmem_rdata;    //data returned from memory 
 
 
-S_extend dataEXT(
-  .i_mask(mask),         
-  .i_unsign(byte_hw_unsigned),
+  S_extend dataEXT (
+      .i_mask  (mask),
+      .i_unsign(byte_hw_unsigned),
 
-  .i_Rs2Data(Mem_WD),   //register data input 
-  .o_Memdata(WriteDataMem),           //aligned output based on mask 
+      .i_Rs2Data(Mem_WD),       //register data input 
+      .o_Memdata(WriteDataMem), //aligned output based on mask 
 
-  .i_WB(WB_DATA),
-  .o_regData(WriteDataReg)
-);
+      .i_WB(WB_DATA),
+      .o_regData(WriteDataReg)
+  );
 
 
   /* 
