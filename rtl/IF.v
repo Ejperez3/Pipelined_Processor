@@ -1,6 +1,7 @@
 `default_nettype none
 
 module IF(
+  input wire NOP,
   input wire i_clk,           //clk to control PC update
   input wire i_rst,           //used to reset PC to starting value
   input wire [31:0] i_NextPC,      //next adress for PC either PC+4 or branch/jump PC
@@ -13,7 +14,11 @@ always @(posedge i_clk) begin
     if (i_rst)
       o_PC <= 32'h00000000;   //on reset gets assigned to adress 0
     else
-      o_PC <= i_NextPC;      
+      //if NOP, maintain current state
+      if(NOP)
+        o_PC <= o_PC;      
+      else
+        o_PC<=i_NextPC;
  end
 
 assign o_inc_pc = o_PC + 32'd4;
