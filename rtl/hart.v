@@ -135,8 +135,8 @@ module hart #(
     output wire o_retire_dmem_ren,
     output wire o_retire_dmem_wen,
     output wire [3:0] o_retire_dmem_mask,
-    output wire [31:0] o_retire_dmem_wdata;
-    output wire [31:0] o_retire_dmem_rdata; 
+    output wire [31:0] o_retire_dmem_wdata,
+    output wire [31:0] o_retire_dmem_rdata
 
 `ifdef RISCV_FORMAL
     `RVFI_OUTPUTS,
@@ -413,6 +413,8 @@ assign JB_PC = (PC_MUX_SEL[1]) ? PC_offset :  ALU_result;
 wire byte_hw_unsigned;
 wire [3:0] mask;
 wire [31:0] WriteDataMem;
+reg [3:0]  reg1_mask;
+reg reg1_byte_hw_unsigned;
 
 S_extend dataEXT(
   .i_mask(mask),         
@@ -443,9 +445,6 @@ wire [31:0] aligned_address;
   EX/MEM Pipeline Register
   */
   reg [31:0] reg2_PC_plus4;
-  reg [31:0] reg0_aligned_address;
-  reg [3:0] reg0_mask;
-  reg reg0_byte_hw_unsigned;
   reg [31:0] reg0_alu_result;
   reg [31:0] reg0_aligned_address; 
   reg [3:0] reg0_mask;
@@ -514,8 +513,7 @@ reg [31:0] reg0_MEM_DATA;
 reg [31:0] reg1_ALU_result;
 reg [31:0] reg2_immediate_val;
 reg [31:0] reg3_PC_plus4; 
-reg [3:0]  reg1_mask;
-reg reg1_byte_hw_unsigned;
+
 
 
 always @(posedge i_clk) begin
