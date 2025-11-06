@@ -275,7 +275,7 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   wire Mux_sel;
   //NOTE: diagram does NOT show this?
   hazard haz (
-  .rst_reg(rst_reg),
+      .rst_reg(rst_reg),
       .IF_ID_RS1(reg0_curr_instruct[19:15]),
       .IF_ID_RS2(reg0_curr_instruct[24:20]),
       .ID_EX_RegWrite(reg0_regWrite),
