@@ -15,7 +15,7 @@ always @(posedge i_clk) begin
       o_PC <= 32'h00000000;   //on reset gets assigned to adress 0
     else
       //if NOP, maintain current state
-      if(NOP~)
+      if(~NOP)
         o_PC <= o_PC;      
       else
         o_PC<=i_NextPC;
