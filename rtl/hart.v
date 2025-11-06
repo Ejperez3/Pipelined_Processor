@@ -269,8 +269,8 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   hazard haz (
       .IF_ID_RS1(reg0_curr_instruct[19:15]),
       .IF_ID_RS2(reg0_curr_instruct[24:20]),
-      .ID_EX_RegWrite(reg1_regWrite),
-      .EX_MEM_RegWrite(reg2_regWrite), 
+      .ID_EX_RegWrite(reg0_regWrite),
+      .EX_MEM_RegWrite(reg1_regWrite), 
       .ID_EX_WriteReg(reg1_curr_instruct[11:7]),
       .EX_MEM_WriteReg(reg2_curr_instruct[11:7]),
       .valid_inst(reg0_retire_valid),
