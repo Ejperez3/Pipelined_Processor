@@ -235,6 +235,17 @@ Delcleration of any extra wires needed for connecting modules and for signals us
       rst_reg<=1'b0;
   end
 
+reg [31:0] flopped_current_PC;
+  always @(posedge i_clk) begin
+    if (i_rst || rst_reg)
+      flopped_current_PC      <= 32'd0;
+    else if (IF_ID_En)
+      flopped_current_PC      <= current_PC;
+    else
+      flopped_current_PC      <= flopped_current_PC; 
+  end
+
+
   reg [31:0] reg0_PC_plus4;
   reg [31:0] reg0_current_PC;
   reg [31:0] reg0_curr_instruct;
@@ -247,7 +258,7 @@ Delcleration of any extra wires needed for connecting modules and for signals us
       reg0_retire_valid  <= 1'd0; 
     end else if (IF_ID_En) begin
       reg0_PC_plus4      <= PC_plus4;
-      reg0_current_PC    <= current_PC;
+      reg0_current_PC    <= flopped_current_PC;
       reg0_curr_instruct <= i_imem_rdata;
       reg0_retire_valid  <= 1'd1;
     end else begin 
