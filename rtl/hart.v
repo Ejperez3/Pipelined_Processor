@@ -210,7 +210,7 @@ Delcleration of any extra wires needed for connecting modules and for signals us
 
 
   IF fetch_inst (
-      .NOP(IF_ID_En),
+      .IF_EN(IF_ID_En),
       .i_clk   (i_clk),   //input- clk to control PC update
       .i_rst   (i_rst),   //input- used to reset PC to starting value
       .i_NextPC(next_PC), //input- next PC value                           
@@ -236,27 +236,18 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   end
 
   reg [31:0] reg0_PC_plus4;
-  reg[31:0] flopped_reg0_current_PC;
   reg [31:0] reg0_current_PC;
   reg [31:0] reg0_curr_instruct;
   reg reg0_retire_valid; 
   always @(posedge i_clk) begin
-    if (i_rst) begin
+    if (i_rst || rst_reg) begin
       reg0_PC_plus4      <= 32'd0;
-      flopped_reg0_current_PC<=32'd0;
       reg0_current_PC    <= 32'd0;
       reg0_curr_instruct <= 32'd0;
       reg0_retire_valid  <= 1'd0; 
-    end else if(rst_reg)begin
-      reg0_PC_plus4      <= reg0_PC_plus4;
-      flopped_reg0_current_PC<=flopped_reg0_current_PC;
-      reg0_current_PC    <= reg0_current_PC;
-      reg0_curr_instruct <= reg0_curr_instruct;
-      reg0_retire_valid  <= reg0_retire_valid; 
     end else if (IF_ID_En) begin
       reg0_PC_plus4      <= PC_plus4;
-      reg0_current_PC    <= flopped_reg0_current_PC;
-      flopped_reg0_current_PC<=current_PC;
+      reg0_current_PC    <= current_PC;
       reg0_curr_instruct <= i_imem_rdata;
       reg0_retire_valid  <= 1'd1;
     end else begin 
@@ -264,7 +255,6 @@ Delcleration of any extra wires needed for connecting modules and for signals us
       reg0_current_PC    <= reg0_current_PC;
       reg0_curr_instruct <= reg0_curr_instruct;
       reg0_retire_valid  <= reg0_retire_valid; 
-      flopped_reg0_current_PC<=flopped_reg0_current_PC;
     end
   end
   wire [4:0] IF_ID_RS1;
