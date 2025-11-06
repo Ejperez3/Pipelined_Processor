@@ -271,8 +271,8 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   hazard haz (
       .IF_ID_RS1(reg0_curr_instruct[19:15]),
       .IF_ID_RS2(reg0_curr_instruct[24:20]),
-      .ID_EX_RegWrite(reg0_regWrite),
-      .EX_MEM_RegWrite(reg1_regWrite), 
+      .ID_EX_RegWrite(reg1_regWrite),
+      .EX_MEM_RegWrite(reg2_regWrite), 
       .ID_EX_WriteReg(reg1_curr_instruct[11:7]),
       .EX_MEM_WriteReg(reg2_curr_instruct[11:7]),
       .valid_inst(reg0_retire_valid),
@@ -348,7 +348,7 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   reg reg0_jalr_C;
   reg reg0_branch_C;
   reg reg0_MemRead_C;
-  reg reg0_Data_sel_C;
+  reg [1:0] reg0_Data_sel_C;
   reg reg0_MemWrite_C;
   reg [31:0] reg0_ALU_operand1;
   reg [31:0] reg0_ALU_operand2;
@@ -475,7 +475,7 @@ wire [31:0] aligned_address;
   reg reg1_MemWrite_C; 
   reg [31:0] reg0_WriteDataMem; 
   reg reg2_retire_valid;
-  reg reg2_current_PC;
+  reg [31:0] reg2_current_PC;
 
   always @(posedge i_clk) begin
     if (i_rst) begin
@@ -536,7 +536,7 @@ reg [31:0] reg1_ALU_result;
 reg [31:0] reg2_immediate_val;
 reg [31:0] reg3_PC_plus4; 
 reg reg3_retire_valid;
-reg reg3_current_PC;
+reg [31:0] reg3_current_PC;
 reg [31:0] reg1_aligned_address;
 reg reg2_MemRead_C;
 reg reg2_MemWrite_C;
