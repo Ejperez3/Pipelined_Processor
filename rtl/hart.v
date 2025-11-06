@@ -612,7 +612,7 @@ We can add extra output signals from modules to connect below
   assign o_retire_valid = reg3_retire_valid &  ~i_rst; //one instruction should be done every cycle
   assign o_retire_inst = reg3_curr_instruct;
   assign o_retire_trap = 1'b0;  // implement trap detection later
-  assign o_retire_halt = (reg0_curr_instruct == 32'h00100073);  // detect ebreak in ID stage 
+  assign o_retire_halt = (reg3_curr_instruct == 32'h00100073);  // detect ebreak in ID stage 
 
   // retire register addresses (taken directly from the instruction fields)
   assign o_retire_rs1_raddr = reg3_curr_instruct[19:15];
