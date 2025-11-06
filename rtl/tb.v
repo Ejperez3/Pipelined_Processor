@@ -92,12 +92,9 @@ module hart_tb ();
     initial begin
       $dumpfile("waves.vcd");
       $dumpvars(0,hart_tb);
+      $display("test this shit");
         clk = 1;
         rst = 0;
-
-        // Open the waveform file.
-        $dumpfile("hart.vcd");
-        $dumpvars(0, hart_tb);
 
         // Load the test program into memory at address 0.
         $display("Loading program.");

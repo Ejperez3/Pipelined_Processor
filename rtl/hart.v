@@ -174,7 +174,6 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   wire [31:0] current_PC;  //will hold current PC value 
   wire [31:0] next_PC;  //holds the adress to be updated in PC next 
   wire [31:0] PC_plus4;  //will hold PC+4 value
-  wire [31:0] curr_instruct;  //holds current instruction
 
   wire        jal_C;  //control signal 
   wire        jalr_C;  //control signal 
@@ -220,7 +219,6 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   );
 
   assign o_imem_raddr = current_PC;  //assign instruction memory read adress to current PC
-  assign curr_instruct = i_imem_rdata;  //assign current instruction to the output from instruction memory
 
 
   /* 
@@ -241,7 +239,7 @@ Delcleration of any extra wires needed for connecting modules and for signals us
     end else if (IF_ID_En) begin
       reg0_PC_plus4      <= PC_plus4;
       reg0_current_PC    <= current_PC;
-      reg0_curr_instruct <= curr_instruct;
+      reg0_curr_instruct <= i_imem_rdata;
       reg0_retire_valid  <= 1'd1;
     end else begin 
       reg0_PC_plus4      <= reg0_PC_plus4;
