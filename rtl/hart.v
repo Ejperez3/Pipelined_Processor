@@ -1,3 +1,4 @@
+`default_nettype none
 module hart #(
     // After reset, the program counter (PC) should be initialized to this
     // address and start executing instructions from there.
@@ -239,7 +240,7 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   reg [31:0] reg0_curr_instruct;
   reg reg0_retire_valid; 
   always @(posedge i_clk) begin
-    if (i_rst) begin
+    if (i_rst || rst_reg) begin
       reg0_PC_plus4      <= 32'd0;
       reg0_current_PC    <= 32'd0;
       reg0_curr_instruct <= 32'd0;
@@ -275,7 +276,6 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   wire Mux_sel;
   //NOTE: diagram does NOT show this?
   hazard haz (
-      .rst_reg(rst_reg),
       .IF_ID_RS1(reg0_curr_instruct[19:15]),
       .IF_ID_RS2(reg0_curr_instruct[24:20]),
       .ID_EX_RegWrite(reg0_regWrite),

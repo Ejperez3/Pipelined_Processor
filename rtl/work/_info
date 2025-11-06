@@ -10,7 +10,7 @@ z2
 cModel Technology
 dC:/ECE552/Project5/rtl
 valu
-Z0 !s110 1762395068
+Z0 !s110 1762398214
 !i10b 1
 !s100 oc7H75DcELa>N=>JcF^zA2
 Z1 !s11b Dg1SIo80bB@j0V0VzS_@n1
@@ -20,13 +20,13 @@ Z3 d/home/vedaant/school_files/fall2025/ECE552/proj5/Pipelined_Processor/rtl
 Z4 w1762385748
 Z5 8alu.v
 Z6 Falu.v
-!i122 419
+!i122 425
 L0 8 89
 Z7 OV;L;2020.1;71
 r1
 !s85 0
 31
-Z8 !s108 1762395068.000000
+Z8 !s108 1762398214.000000
 !s107 WB.v|tb.v|S_extend.v|rf.v|MEM.v|mask_gen.v|imm.v|imm_format.v|IF.v|ID.v|hazard.v|hart.v|EX.v|Control.v|branch.v|alu.v|alu_control.v|
 Z9 !s90 alu_control.v|alu.v|branch.v|Control.v|EX.v|hart.v|hazard.v|ID.v|IF.v|imm_format.v|imm.v|mask_gen.v|MEM.v|rf.v|S_extend.v|tb.v|WB.v|
 !i113 1
@@ -42,7 +42,7 @@ R3
 R4
 8alu_control.v
 Falu_control.v
-!i122 419
+!i122 425
 Z11 L0 3 67
 R7
 r1
@@ -64,7 +64,7 @@ R3
 R4
 R5
 R6
-!i122 419
+!i122 425
 L0 98 42
 R7
 r1
@@ -86,7 +86,7 @@ R3
 R4
 8branch.v
 Fbranch.v
-!i122 419
+!i122 425
 L0 10 22
 R7
 r1
@@ -108,7 +108,7 @@ R3
 R4
 8Control.v
 FControl.v
-!i122 419
+!i122 425
 L0 9 84
 R7
 r1
@@ -131,7 +131,7 @@ R3
 R4
 8EX.v
 FEX.v
-!i122 419
+!i122 425
 R11
 R7
 r1
@@ -146,16 +146,16 @@ n@e@x
 vhart
 R0
 !i10b 1
-!s100 AkgJe1^HRh1A9g1?AmE@e2
+!s100 @f1D0=P7N5BZ6]@m>?6^a0
 R1
-I@MAUQPEM]zOKL_f^jdSL`2
+IWD198Hk5;8335S4J3`^8<1
 R2
 R3
-w1762395061
+w1762398212
 8hart.v
 Fhart.v
-!i122 419
-L0 1 642
+!i122 425
+L0 2 641
 R7
 r1
 !s85 0
@@ -176,7 +176,7 @@ R3
 w1762391229
 8tb.v
 Ftb.v
-!i122 419
+!i122 425
 L0 1 162
 R7
 r1
@@ -190,16 +190,16 @@ R10
 vhazard
 R0
 !i10b 1
-!s100 7Cz50zbE[2LI;V3hfhmmO0
+!s100 kd>_<3]hTzGlhZ>KQ4^^B2
 R1
-IO1Fkj`mYGzngz:JE:QoVa2
+Ib0CX_iS0g@85^0HPUi`9X2
 R2
 R3
-w1762393537
+w1762398172
 8hazard.v
 Fhazard.v
-!i122 419
-L0 7 29
+!i122 425
+L0 7 28
 R7
 r1
 !s85 0
@@ -220,7 +220,7 @@ R3
 R4
 8ID.v
 FID.v
-!i122 419
+!i122 425
 L0 2 81
 R7
 r1
@@ -243,7 +243,7 @@ R3
 w1762390573
 8IF.v
 FIF.v
-!i122 419
+!i122 425
 L0 3 24
 R7
 r1
@@ -266,7 +266,7 @@ R3
 R4
 8imm.v
 Fimm.v
-!i122 419
+!i122 425
 L0 7 25
 R7
 r1
@@ -288,7 +288,7 @@ R3
 R4
 8imm_format.v
 Fimm_format.v
-!i122 419
+!i122 425
 L0 2 34
 R7
 r1
@@ -310,7 +310,7 @@ R3
 R4
 8mask_gen.v
 Fmask_gen.v
-!i122 419
+!i122 425
 L0 35 23
 R7
 r1
@@ -332,7 +332,7 @@ R3
 R4
 8MEM.v
 FMEM.v
-!i122 419
+!i122 425
 Z13 L0 2 26
 R7
 r1
@@ -355,7 +355,7 @@ R3
 R4
 8rf.v
 Frf.v
-!i122 419
+!i122 425
 L0 12 56
 R7
 r1
@@ -377,7 +377,7 @@ R3
 R4
 8S_extend.v
 FS_extend.v
-!i122 419
+!i122 425
 L0 3 43
 R7
 r1
@@ -400,7 +400,7 @@ R3
 R4
 8WB.v
 FWB.v
-!i122 419
+!i122 425
 R13
 R7
 r1
