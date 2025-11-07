@@ -249,10 +249,7 @@ reg [31:0] flopped_current_PC;
   reg [31:0] reg0_PC_plus4;
   reg [31:0] reg0_current_PC;
   reg [31:0] reg0_curr_instruct;
-  reg flopped_shit;
-  always@(posedge i_clk)begin
-    flopped_shit<=IF_ID_En;
-end
+
   reg reg0_retire_valid; 
   always @(posedge i_clk) begin
     if (i_rst || rst_reg) begin
@@ -260,7 +257,7 @@ end
       reg0_current_PC    <= 32'd0;
       reg0_curr_instruct <= 32'd0;
       reg0_retire_valid  <= 1'd0; 
-    end else if (flopped_shit) begin
+    end else if (IF_ID_En) begin
       reg0_PC_plus4      <= PC_plus4;
       reg0_current_PC    <= flopped_current_PC;
       reg0_curr_instruct <= i_imem_rdata;
