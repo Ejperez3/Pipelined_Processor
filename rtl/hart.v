@@ -209,15 +209,17 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   assign next_PC = (PC_MUX_SEL[0]) ? JB_PC : PC_plus4;
 
 
+  wire[31:0] current_PC_w;
   IF fetch_inst (
       .IF_EN(IF_ID_En),
       .i_clk   (i_clk),   //input- clk to control PC update
       .i_rst   (i_rst),   //input- used to reset PC to starting value
       .i_NextPC(next_PC), //input- next PC value                           
 
-      .o_PC(current_PC),            //output- current PC feed into instruction memory and other locations (schematic) 
+      .o_PC(current_PC_w),            //output- current PC feed into instruction memory and other locations (schematic) 
       .o_inc_pc(PC_plus4)  //output- current PC + 4 
   );
+  assign current_PC=(IF_ID_En)?(current_PC_w):(current_PC_w-32'd4);
 
   assign o_imem_raddr = current_PC;  //assign instruction memory read adress to current PC
 
