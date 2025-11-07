@@ -386,6 +386,9 @@ reg [31:0] flopped_current_PC;
   reg [6:0] reg0_OP;
   reg reg1_retire_valid; 
 
+
+reg [31:0] reg0_regData1;
+reg [31:0] reg0_regData2;
   //include mux to control WB, M and EX inputs 
 
   always @(posedge i_clk) begin
@@ -408,7 +411,9 @@ reg [31:0] flopped_current_PC;
       reg0_func_val      <= 4'd0;
       reg0_OP            <= 7'd0;
       reg1_curr_instruct <= 32'd0;
-      reg1_retire_valid  <= 1'd0;     
+      reg1_retire_valid  <= 1'd0;
+      reg0_regData1      <= 32'd0;
+      reg0_regData2      <=32'd0;
 
     end else begin
       reg1_current_PC    <= reg0_current_PC;
@@ -430,6 +435,8 @@ reg [31:0] flopped_current_PC;
       reg0_OP            <= reg0_curr_instruct[6:0];
       reg1_curr_instruct <= reg0_curr_instruct; 
       reg1_retire_valid  <= reg0_retire_valid;
+      reg0_regData1      <= regData1;
+      reg0_regData2      <= regData2;      
     end 
  end
 
@@ -505,6 +512,9 @@ wire [31:0] aligned_address;
   reg reg2_retire_valid;
   reg [31:0] reg2_current_PC;
 
+  reg [31:0] reg1_regData1;
+  reg [31:0] reg1_regData2;
+
   always @(posedge i_clk) begin
     if (i_rst) begin
       reg2_PC_plus4 <= 32'b0;
@@ -520,7 +530,9 @@ wire [31:0] aligned_address;
       reg0_WriteDataMem <= 32'd0;
       reg2_curr_instruct <= 32'd0;
       reg2_retire_valid  <= 1'd0;
-      reg2_current_PC    <= 32'd0;   
+      reg2_current_PC    <= 32'd0;
+      reg1_regData2     <= 32'd0;
+      reg1_regData1     <= 32'd0;   
 
     end else begin
       reg2_PC_plus4 <= reg1_PC_plus4;
@@ -536,7 +548,9 @@ wire [31:0] aligned_address;
       reg0_WriteDataMem <= WriteDataMem;
       reg2_curr_instruct <= reg1_curr_instruct;
       reg2_retire_valid  <= reg1_retire_valid;
-      reg2_current_PC    <= reg1_current_PC; 
+      reg2_current_PC    <= reg1_current_PC;
+      reg1_regData2     <= reg0_regData2;
+      reg1_regData1     <= reg0_regData1;       
     end
   end
 
@@ -570,6 +584,8 @@ reg reg2_MemRead_C;
 reg reg2_MemWrite_C;
 reg [31:0] reg1_WriteDataMem;
 
+reg [31:0] reg2_regData1;
+reg [31:0] reg2_regData2;
 
 always @(posedge i_clk) begin
     if (i_rst)begin
@@ -587,7 +603,9 @@ always @(posedge i_clk) begin
       reg1_aligned_address  <= 32'd0;
       reg2_MemRead_C        <= 1'd0; 
       reg2_MemWrite_C       <= 1'd0;
-      reg1_WriteDataMem     <= 32'd0;  
+      reg1_WriteDataMem     <= 32'd0;
+      reg2_regData1         <= 32'd0;
+      reg2_regData2         <= 32'd0;   
     end else begin
       reg2_regWrite         <= reg1_regWrite;
       reg2_Data_sel_C       <= reg1_Data_sel_C; 
@@ -604,6 +622,8 @@ always @(posedge i_clk) begin
       reg2_MemRead_C        <= reg1_MemRead_C;
       reg2_MemWrite_C       <= reg1_MemWrite_C;
       reg1_WriteDataMem     <= reg0_WriteDataMem; 
+      reg2_regData1         <= reg1_regData1;
+      reg2_regData2         <= reg1_regData2;
     end 
  end
 
@@ -642,8 +662,8 @@ We can add extra output signals from modules to connect below
 
   // retire register read data 
   // Ideally use the raw register-file read data
-  assign o_retire_rs1_rdata = regData1;
-  assign o_retire_rs2_rdata = regData2;
+  assign o_retire_rs1_rdata = reg2_regData1;
+  assign o_retire_rs2_rdata = reg2_regData2;
 
   // retire write-back info (what is written back this cycle)
   assign o_retire_rd_wdata = WriteDataReg;
