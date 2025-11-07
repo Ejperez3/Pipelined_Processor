@@ -1,5 +1,5 @@
 # vsim -c work.hart_tb -do "run  -all; quit" 
-# Start time: 19:38:43 on Nov 06,2025
+# Start time: 20:25:11 on Nov 06,2025
 # Loading work.hart_tb
 # Loading work.hart
 # Loading work.IF
@@ -148,5 +148,5 @@
 # CPI: 1.785124
 # ** Note: $finish    : tb.v(157)
 #    Time: 2170 ps  Iteration: 1  Instance: /hart_tb
-# End time: 19:38:43 on Nov 06,2025, Elapsed time: 0:00:00
+# End time: 20:25:11 on Nov 06,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0

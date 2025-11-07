@@ -229,6 +229,7 @@ Delcleration of any extra wires needed for connecting modules and for signals us
  Include NOP control
  TODO: EXPECTS INPUT OF NOP
 */
+  reg[31:0] PC_plus4_flop;
   reg rst_reg;
   always@(posedge i_clk)begin
     if(i_rst)
@@ -239,12 +240,18 @@ Delcleration of any extra wires needed for connecting modules and for signals us
 
 reg [31:0] flopped_current_PC;
   always @(posedge i_clk) begin
-    if (i_rst || rst_reg)
+    if (i_rst || rst_reg)begin
       flopped_current_PC      <= 32'd0;
-    else if (IF_ID_En)
+    PC_plus4_flop<=32'd0;
+  end
+  else if (IF_ID_En)begin
       flopped_current_PC      <= current_PC;
-    else
+    PC_plus4_flop<=PC_plus4;
+  end
+  else begin
       flopped_current_PC      <= flopped_current_PC; 
+      PC_plus4_flop<=PC_plus4_flop;
+    end
   end
 
 
@@ -260,7 +267,7 @@ reg [31:0] flopped_current_PC;
       reg0_curr_instruct <= 32'd0;
       reg0_retire_valid  <= 1'd0; 
     end else if (IF_ID_En) begin
-      reg0_PC_plus4      <= PC_plus4;
+      reg0_PC_plus4      <= PC_plus4_flop;
       reg0_current_PC    <= flopped_current_PC;
       reg0_curr_instruct <= i_imem_rdata;
       reg0_retire_valid  <= 1'd1;
