@@ -481,7 +481,7 @@ S_extend dataEXT(
   .i_old_mask(reg1_mask),
   .i_old_unsign(reg1_byte_hw_unsigned), 
 
-  .i_Rs2Data(Mem_WD),                 //register data input 
+  .i_Rs2Data(reg0_Mem_WD),                 //register data input 
   .o_Memdata(WriteDataMem),           //aligned output based on mask 
 
   .i_WB(WB_DATA),
