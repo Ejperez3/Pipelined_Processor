@@ -206,7 +206,8 @@ Delcleration of any extra wires needed for connecting modules and for signals us
 
 
   // choose between PC+4 or jump/Branch PC (By default should be PC+4)
-  assign next_PC = (PC_MUX_SEL[0]) ? JB_PC : PC_plus4;
+  reg rst_reg;
+  assign next_PC =(rst_reg)?(32'd0):((~IF_ID_En)?(PC_plus4-32'd4):((PC_MUX_SEL[0]) ? JB_PC : PC_plus4));
 
 
   wire[31:0] current_PC_w;
@@ -221,7 +222,7 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   );
   assign current_PC=(IF_ID_En)?(current_PC_w):(current_PC_w-32'd4);
 
-  assign o_imem_raddr = current_PC;  //assign instruction memory read adress to current PC
+  assign o_imem_raddr = next_PC;  //assign instruction memory read adress to current PC
 
 
   /* 
@@ -230,7 +231,6 @@ Delcleration of any extra wires needed for connecting modules and for signals us
  TODO: EXPECTS INPUT OF NOP
 */
   reg[31:0] PC_plus4_flop;
-  reg rst_reg;
   always@(posedge i_clk)begin
     if(i_rst)
       rst_reg<=1'b1;
@@ -267,8 +267,8 @@ reg [31:0] flopped_current_PC;
       reg0_curr_instruct <= 32'd0;
       reg0_retire_valid  <= 1'd0; 
     end else if (IF_ID_En) begin
-      reg0_PC_plus4      <= PC_plus4_flop;
-      reg0_current_PC    <= flopped_current_PC;
+      reg0_PC_plus4      <= PC_plus4;
+      reg0_current_PC    <= current_PC;
       reg0_curr_instruct <= i_imem_rdata;
       reg0_retire_valid  <= 1'd1;
     end else begin 
