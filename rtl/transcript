@@ -1,5 +1,5 @@
 # vsim -c work.hart_tb -do "run -all; quit" 
-# Start time: 20:22:24 on Nov 07,2025
+# Start time: 20:30:40 on Nov 07,2025
 # Loading work.hart_tb
 # Loading work.hart
 # Loading work.IF
@@ -24,7 +24,7 @@
 # Cycle  PC        Inst     rs1            rs2            [rd, load, store]
 # [00000000] 10000413 r[ 0]=00000000 r[xx]=xxxxxxxx w[ 8]=00000100 
 # [00000004] 07c000ef r[xx]=xxxxxxxx r[xx]=xxxxxxxx w[ 1]=00000008 
-# [00000008] 123412b7 r[xx]=xxxxxxxx r[xx]=xxxxxxxx w[ 5]=12341000 
+# [00000080] 00000293 r[ 0]=00000000 r[xx]=xxxxxxxx w[ 5]=00000000 
 # [00000084] 00000313 r[ 0]=00000000 r[xx]=xxxxxxxx w[ 6]=00000000 
 # [00000088] 00000393 r[ 0]=00000000 r[xx]=xxxxxxxx w[ 7]=00000000 
 # [0000008c] 00000e13 r[ 0]=00000000 r[xx]=xxxxxxxx w[28]=00000000 
@@ -40022,5 +40022,5 @@
 # CPI: 1.000175
 # ** Note: $finish    : tb.v(157)
 #    Time: 400020 ps  Iteration: 1  Instance: /hart_tb
-# End time: 20:22:25 on Nov 07,2025, Elapsed time: 0:00:01
+# End time: 20:30:42 on Nov 07,2025, Elapsed time: 0:00:02
 # Errors: 0, Warnings: 0

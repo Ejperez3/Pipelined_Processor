@@ -258,7 +258,7 @@ reg [31:0] flopped_current_PC;
   //TODO: 
   reg reg1_jal_C;
   reg reg0_jal_C;
-  assign flush=(reg0_jal_C ||reg1_jal_C);
+  assign flush=(reg0_jal_C);
 
   reg [31:0] reg0_PC_plus4;
   reg [31:0] reg0_current_PC;
@@ -397,7 +397,7 @@ reg [31:0] reg0_regData2;
   //include mux to control WB, M and EX inputs 
 
   always @(posedge i_clk) begin
-    if (i_rst || Mux_sel) begin
+    if (i_rst || Mux_sel || flush) begin
       reg1_current_PC    <= 32'd0;
       reg1_PC_plus4      <= 32'd0;
       reg0_immediate_val <= 32'd0;
