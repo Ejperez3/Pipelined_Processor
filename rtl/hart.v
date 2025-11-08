@@ -230,28 +230,11 @@ Delcleration of any extra wires needed for connecting modules and for signals us
  Include NOP control
  TODO: EXPECTS INPUT OF NOP
 */
-  reg[31:0] PC_plus4_flop;
   always@(posedge i_clk)begin
     if(i_rst)
       rst_reg<=1'b1;
     else
       rst_reg<=1'b0;
-  end
-
-reg [31:0] flopped_current_PC;
-  always @(posedge i_clk) begin
-    if (i_rst || rst_reg)begin
-      flopped_current_PC      <= 32'd0;
-    PC_plus4_flop<=32'd0;
-  end
-  else if (IF_ID_En)begin
-      flopped_current_PC      <= current_PC;
-    PC_plus4_flop<=PC_plus4;
-  end
-  else begin
-      flopped_current_PC      <= flopped_current_PC; 
-      PC_plus4_flop<=PC_plus4_flop;
-    end
   end
 
 
