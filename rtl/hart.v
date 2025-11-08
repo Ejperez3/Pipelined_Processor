@@ -640,7 +640,7 @@ always @(posedge i_clk) begin
 */
   WB writeback (
 
-      .i_MemData(reg0_MEM_DATA),  //input-  data coming from Memory
+      .i_MemData(MEM_DATA),  //input-  data coming from Memory
       .i_AluRslt(reg1_ALU_result),  //input- ALU operation result 
       .i_imm(reg2_immediate_val),  //input- output from immediate generator 
       .i_PC4(reg3_PC_plus4),  //input- incremented PC (used to save jump return adress in register)
@@ -684,7 +684,7 @@ We can add extra output signals from modules to connect below
   assign o_retire_dmem_wen = reg2_MemWrite_C;
   assign o_retire_dmem_mask = reg1_mask; 
   assign o_retire_dmem_wdata = reg1_WriteDataMem; 
-  assign o_retire_dmem_rdata = reg0_MEM_DATA; 
+  assign o_retire_dmem_rdata = MEM_DATA; 
 
 
 endmodule
