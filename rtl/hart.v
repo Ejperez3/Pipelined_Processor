@@ -254,6 +254,11 @@ reg [31:0] flopped_current_PC;
     end
   end
 
+  wire flush;
+  //TODO: 
+  reg reg1_jal_C;
+  reg reg0_jal_C;
+  assign flush=(reg0_jal_C ||reg1_jal_C);
 
   reg [31:0] reg0_PC_plus4;
   reg [31:0] reg0_current_PC;
@@ -261,7 +266,7 @@ reg [31:0] flopped_current_PC;
 
   reg reg0_retire_valid; 
   always @(posedge i_clk) begin
-    if (i_rst || rst_reg) begin
+    if (i_rst || rst_reg||flush) begin
       reg0_PC_plus4      <= 32'd0;
       reg0_current_PC    <= 32'd0;
       reg0_curr_instruct <= 32'd0;
@@ -373,7 +378,6 @@ reg [31:0] flopped_current_PC;
   reg [31:0] reg1_current_PC;
   reg [31:0] reg0_immediate_val;
   reg [2:0] reg0_func3_val;
-  reg reg0_jal_C;
   reg reg0_jalr_C;
   reg reg0_branch_C;
   reg reg0_MemRead_C;
@@ -518,6 +522,7 @@ wire [31:0] aligned_address;
 
   always @(posedge i_clk) begin
     if (i_rst) begin
+      reg1_jal_C<=1'b0;
       reg2_PC_plus4 <= 32'b0;
       reg0_aligned_address <= 32'b0;
       reg0_mask <= 4'b0;
@@ -536,6 +541,7 @@ wire [31:0] aligned_address;
       reg1_regData1     <= 32'd0;   
 
     end else begin
+      reg1_jal_C<=reg0_jal_C;
       reg2_PC_plus4 <= reg1_PC_plus4;
       reg0_aligned_address <= aligned_address;
       reg0_mask <= mask;
