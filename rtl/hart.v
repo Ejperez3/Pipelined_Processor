@@ -258,7 +258,8 @@ reg [31:0] flopped_current_PC;
   //TODO: 
   reg reg1_jal_C;
   reg reg0_jal_C;
-  assign flush=(reg0_jal_C);
+  reg reg0_jalr_C;
+  assign flush=(reg0_jal_C ||reg0_jalr_C);
 
   reg [31:0] reg0_PC_plus4;
   reg [31:0] reg0_current_PC;
@@ -378,7 +379,6 @@ reg [31:0] flopped_current_PC;
   reg [31:0] reg1_current_PC;
   reg [31:0] reg0_immediate_val;
   reg [2:0] reg0_func3_val;
-  reg reg0_jalr_C;
   reg reg0_branch_C;
   reg reg0_MemRead_C;
   reg [1:0] reg0_Data_sel_C;
