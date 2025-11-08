@@ -4,8 +4,8 @@
 // right to left (2 mux's)
 //00   PC+4
 //10   PC+4
-//11   JUMP o_result from ALU
-//11   Branch PC+Imm
+//01   JALR o_result from ALU
+//11   Branch PC+Imm & JAL
 
 module branch (
     input wire [2:0] func3,

@@ -254,12 +254,15 @@ reg [31:0] flopped_current_PC;
     end
   end
 
-  wire flush;
+
+  wire branch_taken; 
+  assign branch_taken = (PC_MUX_SEL == 2'b11);
   //TODO: 
+  wire flush;
   reg reg1_jal_C;
   reg reg0_jal_C;
   reg reg0_jalr_C;
-  assign flush=(reg0_jal_C ||reg0_jalr_C);
+  assign flush=(reg0_jal_C ||reg0_jalr_C||branch_taken);
 
   reg [31:0] reg0_PC_plus4;
   reg [31:0] reg0_current_PC;
