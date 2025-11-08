@@ -1,5 +1,5 @@
 # vsim -c work.hart_tb -do "run -all; quit" 
-# Start time: 17:43:41 on Nov 07,2025
+# Start time: 18:38:17 on Nov 07,2025
 # Loading work.hart_tb
 # Loading work.hart
 # Loading work.IF
@@ -26,18 +26,11 @@
 # [00000004] 07c000ef r[xx]=xxxxxxxx r[xx]=xxxxxxxx w[ 1]=00000008 
 # [00000008] 123412b7 r[xx]=xxxxxxxx r[xx]=xxxxxxxx w[ 5]=12341000 
 # [0000000c] 23428293 r[ 5]=12341000 r[xx]=xxxxxxxx w[ 5]=12341234 
-# [00000010] 00542023 r[ 8]=00000100 r[ 5]=12341234 s[00000100,1111]=00000000 
-# [00000014] 00042303 r[ 8]=00000100 r[xx]=xxxxxxxx w[ 6]=00000000 l[00000100,1111]=00000000 
-# [00000018] 00200193 r[ 0]=00000000 r[xx]=xxxxxxxx w[ 3]=00000002 
-# [0000001c] 04629c63 r[ 5]=12341234 r[ 6]=00000000 
-# [00000020] 060000ef r[xx]=xxxxxxxx r[xx]=xxxxxxxx w[ 1]=00000024 
-# [00000024] b2e00293 r[ 0]=00000000 r[xx]=xxxxxxxx w[ 5]=fffffb2e 
-# [00000028] 00541023 r[ 8]=00000100 r[ 5]=fffffb2e s[00000100,0011]=00000024 
-# [00000074] 00100073 r[xx]=xxxxxxxx r[xx]=xxxxxxxx 
-# Program halted after          25 cycles.
-# Total instructions retired:          12
-# CPI: 2.083333
+# [00000010] 00100073 r[xx]=xxxxxxxx r[xx]=xxxxxxxx 
+# Program halted after          12 cycles.
+# Total instructions retired:           5
+# CPI: 2.400000
 # ** Note: $finish    : tb.v(157)
-#    Time: 260 ps  Iteration: 1  Instance: /hart_tb
-# End time: 17:43:42 on Nov 07,2025, Elapsed time: 0:00:01
+#    Time: 130 ps  Iteration: 1  Instance: /hart_tb
+# End time: 18:38:17 on Nov 07,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0

@@ -5,9 +5,10 @@
 
 // TODO: UPDATE FOR FORWARDING/BYPASSING LATER
 module hazard (
+    input wire [6:0] op_code,
     input wire [4:0] IF_ID_RS1,
     input wire [4:0] IF_ID_RS2,
-    input wire valid_inst, 
+    input wire valid_inst,
 
     input wire [4:0] ID_EX_WriteReg,
     input wire ID_EX_RegWrite,
@@ -21,8 +22,10 @@ module hazard (
     output wire Mux_sel
 );
 
- wire hazard;
-assign hazard = valid_inst && (
+  wire hazard;
+  wire is_jump_or_lui;
+  assign is_jump_or_lui=(op_code==(7'b0110111)|| op_code==7'b0010111 || op_code==7'b1101111);
+  assign hazard = ~is_jump_or_lui && valid_inst && (
                    (ID_EX_RegWrite && (ID_EX_WriteReg != 5'd0) &&
                         ((ID_EX_WriteReg == IF_ID_RS1) || (ID_EX_WriteReg == IF_ID_RS2))) ||
                    (EX_MEM_RegWrite && (EX_MEM_WriteReg != 5'd0) &&
