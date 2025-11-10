@@ -1,5 +1,5 @@
 # vsim -c work.hart_tb -do "run -all; quit" 
-# Start time: 17:23:33 on Nov 10,2025
+# Start time: 17:34:09 on Nov 10,2025
 # Loading work.hart_tb
 # Loading work.hart
 # Loading work.IF
@@ -23,27 +23,25 @@
 # Loading program.
 # Resetting hart.
 # Cycle  PC        Inst     rs1            rs2            [rd, load, store]
-# [00000000] 10000413 r[ 0]=00000100 r[xx]=xxxxxxxx w[ 8]=00000100 
-# [00000004] 07c000ef r[xx]=xxxxxxxx r[xx]=xxxxxxxx w[ 1]=00000008 
-# [00000080] 00000293 r[ 0]=00000000 r[xx]=xxxxxxxx w[ 5]=00000000 
-# [00000084] 00000313 r[ 0]=00000000 r[xx]=xxxxxxxx w[ 6]=00000000 
-# [00000088] 00000393 r[ 0]=00000000 r[xx]=xxxxxxxx w[ 7]=00000000 
-# [0000008c] 00000e13 r[ 0]=00000000 r[xx]=xxxxxxxx w[28]=00000000 
-# [00000090] 00042023 r[ 8]=00000000 r[ 0]=00000100 s[00000100,1111]=00000000 
-# [00000094] 00008067 r[xx]=xxxxxxxx r[xx]=xxxxxxxx 
-# [00000008] 123412b7 r[xx]=xxxxxxxx r[xx]=xxxxxxxx w[ 5]=12341000 
-# [0000000c] 23428293 r[ 5]=00000234 r[xx]=xxxxxxxx w[ 5]=00000334 
-# [00000010] 00542023 r[ 8]=00000334 r[ 5]=00000100 s[00000434,1111]=00000000 
-# [00000014] 00042303 r[ 8]=00000000 r[xx]=xxxxxxxx w[ 6]=00000000 l[00000100,1111]=00000000 
-# [00000018] 00200193 r[ 0]=00000002 r[xx]=xxxxxxxx w[ 3]=00000002 
-# [0000001c] 04629c63 r[ 5]=00000000 r[ 6]=00000334 
-# [00000074] 0000e537 r[xx]=xxxxxxxx r[xx]=xxxxxxxx w[10]=0000e000 
-# [00000078] ead50513 r[10]=fffffead r[xx]=xxxxxxxx w[10]=fffffeb5 
-# [0000007c] 00100073 r[xx]=xxxxxxxx r[xx]=xxxxxxxx 
-# Program halted after          28 cycles.
-# Total instructions retired:          17
-# CPI: 1.647059
+# [00000000] 00000093 r[ 0]=00000000 r[xx]=xxxxxxxx w[ 1]=00000000 
+# [00000004] 00000113 r[ 0]=00000000 r[xx]=xxxxxxxx w[ 2]=00000000 
+# [00000008] 00208f33 r[ 1]=00000000 r[ 2]=00000000 w[30]=00000000 
+# [0000000c] 00000e93 r[ 0]=00000000 r[xx]=xxxxxxxx w[29]=00000000 
+# [00000010] 00200193 r[ 0]=00000000 r[xx]=xxxxxxxx w[ 3]=00000002 
+# [00000014] 1ddf1863 r[30]=00000000 r[29]=00000000 
+# [00000018] 00100093 r[ 0]=00000000 r[xx]=xxxxxxxx w[ 1]=00000001 
+# [0000001c] 00100113 r[ 0]=00000000 r[xx]=xxxxxxxx w[ 2]=00000001 
+# [00000020] 00208f33 r[ 1]=00000001 r[ 2]=00000001 w[30]=00000002 
+# [00000024] 00200e93 r[ 0]=00000000 r[xx]=xxxxxxxx w[29]=00000001 
+# [00000028] 00300193 r[ 0]=00000000 r[xx]=xxxxxxxx w[ 3]=00000003 
+# [0000002c] 1bdf1c63 r[30]=00000002 r[29]=00000001 
+# [000001e4] 0000e537 r[xx]=xxxxxxxx r[xx]=xxxxxxxx w[10]=0000e000 
+# [000001e8] ead50513 r[10]=00000001 r[xx]=xxxxxxxx w[10]=fffffeae 
+# [000001ec] 00100073 r[xx]=xxxxxxxx r[xx]=xxxxxxxx 
+# Program halted after          22 cycles.
+# Total instructions retired:          15
+# CPI: 1.466667
 # ** Note: $finish    : tb.v(157)
-#    Time: 290 ps  Iteration: 1  Instance: /hart_tb
-# End time: 17:23:33 on Nov 10,2025, Elapsed time: 0:00:00
+#    Time: 230 ps  Iteration: 1  Instance: /hart_tb
+# End time: 17:34:09 on Nov 10,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0

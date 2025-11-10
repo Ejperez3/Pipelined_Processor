@@ -579,8 +579,8 @@ wire [31:0] aligned_address;
       reg2_curr_instruct <= reg1_curr_instruct;
       reg2_retire_valid  <= reg1_retire_valid;
       reg2_current_PC    <= reg1_current_PC;
-      reg1_regData2     <= ialu_operand1;
-      reg1_regData1     <= ialu_operand2;       
+      reg1_regData2     <= ialu_operand2;
+      reg1_regData1     <= ialu_operand1;       
     end
   end
 
