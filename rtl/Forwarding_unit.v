@@ -18,17 +18,41 @@ module Forwarding_unit (
     input wire EXMEM_regWrite, //Write enable signals 
     input wire MEMWB_regWrite,
 
-    input wire EXMEM_MemRead,  //MemRead signals 
-
-
     input wire [31:0] EXMEM_aluResult,
     input wire [31:0] MEMWB_wbValue,
 
-    output wire FW_mux_sel
+
+    output wire  FW1_mux_sel,
+    output wire  FW2_mux_sel,
+    output wire [31:0] FW_data1,
+    output wire [31:0] FW_data2
 );
 
+wire forward_det1;
+wire forward_det2;
+wire forward_det3;
+wire forward_det4;
+
+//Forwarding possibilities 
+assign forward_det1 = (IDEX_RS1 == EXMEM_RD) && (EXMEM_RD != 5'd0) && (EXMEM_regWrite);
+assign forward_det2 = (IDEX_RS1 == MEMWB_RD) && (MEMWB_RD != 5'd0) && (MEMWB_regWrite);
+
+assign forward_det3 = (IDEX_RS2 == EXMEM_RD) && (EXMEM_RD != 5'd0) && (EXMEM_regWrite);
+assign forward_det4 = (IDEX_RS2 == MEMWB_RD) && (MEMWB_RD != 5'd0) && (MEMWB_regWrite);
+
+//check if we need to forward RS1
+assign FW1_mux_sel  = (forward_det1 || forward_det2) ? 1'b1 : 1'b0; 
+
+//checl if we need to forward RS2
+assign FW2_mux_sel = (forward_det3 || forward_det4) ? 1'b1 : 1'b0;                 
 
 
+assign FW_data1 = (forward_det1) ? EXMEM_aluResult :
+                  (forward_det2) ? MEMWB_wbValue   :
+                                   32'd0; //no forwarding needed will choose default
 
+assign FW_data2 = (forward_det3) ? EXMEM_aluResult :
+                  (forward_det4) ? MEMWB_wbValue   :
+                                   32'd0; //no forwarding needed will choose default
 endmodule
 `default_nettype wire

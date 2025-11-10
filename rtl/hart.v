@@ -250,6 +250,7 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   reg [31:0] reg0_PC_plus4;
   reg [31:0] reg0_current_PC;
   reg [31:0] reg0_curr_instruct;
+  reg reg0_MemRead_C;
 
   reg reg0_retire_valid; 
   always @(posedge i_clk) begin
@@ -289,14 +290,12 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   wire Mux_sel;
   //NOTE: diagram does NOT show this?
   hazard haz (
-  .op_code(reg0_curr_instruct[6:0]),
+      .op_code(reg0_curr_instruct[6:0]),
       .IF_ID_RS1(reg0_curr_instruct[19:15]),
-      .IF_ID_RS2(reg0_curr_instruct[24:20]),
-      .ID_EX_RegWrite(reg0_regWrite),
-      .EX_MEM_RegWrite(reg1_regWrite), 
+      .IF_ID_RS2(reg0_curr_instruct[24:20]), 
       .ID_EX_WriteReg(reg1_curr_instruct[11:7]),
-      .EX_MEM_WriteReg(reg2_curr_instruct[11:7]),
       .valid_inst(reg0_retire_valid),
+      .ID_EX_MemRead(reg0_MemRead_C),
 
       .PC_En(PC_En),
       .IF_ID_En(IF_ID_En),
@@ -366,7 +365,6 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   reg [31:0] reg0_immediate_val;
   reg [2:0] reg0_func3_val;
   reg reg0_branch_C;
-  reg reg0_MemRead_C;
   reg [1:0] reg0_Data_sel_C;
   reg reg0_MemWrite_C;
   reg [31:0] reg0_ALU_operand1;
@@ -432,6 +430,46 @@ reg [31:0] reg0_regData2;
  end
 
 
+
+
+
+
+ Forwarding_unit fw1(
+
+    //When the instruction reaches EX, it checks if its rs1 or rs2 register matches the rd register of any instruction ahead 
+    //in the pipeline (EX/MEM or MEM/WB) If yes — we take that newer value instead of the stale one from the register file.
+
+    .IDEX_RS1(reg1_curr_instruct[19:15]), //rs1 read reg in EX
+    .IDEX_RS2(reg1_curr_instruct[24:20]), //rs2 read reg in eX
+
+    .EXMEM_RD(reg2_curr_instruct[11:7]),   //future RD registers 
+    .MEMWB_RD(reg3_curr_instruct[11:7]),
+
+    .EXMEM_regWrite(reg1_regWrite), //Write enable signals 
+    .MEMWB_regWrite(reg2_regWrite),
+
+    .EXMEM_aluResult(reg0_ALU_result),
+    .MEMWB_wbValue(WriteDataReg),
+
+    .FW1_mux_sel(fw_mux1),
+    .FW2_mux_sel(fw_mux2),
+    .FW_data1(fw_alu_op1),
+    .FW_data2(fw_alu_op2)
+);
+
+
+wire fw_mux1;
+wire fw_mux2;
+
+wire [31:0] fw_alu_op1;
+wire [31:0] fw_alu_op2;
+wire [31:0] ialu_operand1;
+wire [31:0] ialu_operand2;
+
+
+assign ialu_operand1 = (fw_mux1) ? fw_alu_op1 :reg0_ALU_operand1;
+assign ialu_operand2 = (fw_mux2) ? fw_alu_op2 :reg0_ALU_operand2;
+
   /* 
  Instantiate EX section of proccesor 
 */
@@ -442,8 +480,8 @@ reg [31:0] reg0_regData2;
       .i_jalr(reg0_jalr_C),  //input- control signal for branch logic block
       .i_branch(reg0_branch_C),  //input- control signal for branch logic block
       .i_ALUOp(reg0_ALUop_C),  //input- input to ALU CTRL unit
-      .i_op1(reg0_ALU_operand1),  //input- ALU operand1
-      .i_op2(reg0_ALU_operand2),  //input- ALU operand2
+      .i_op1(ialu_operand1),  //input- ALU operand1
+      .i_op2(ialu_operand2),  //input- ALU operand2
       .i_imm(reg0_immediate_val),        //input- i_imm is used for adding to current PC if we are in I instruction i_op2 will be input as immediate already
       .func(reg0_func_val),  //input- combination of func7 and func 3 used by ALU control
 
@@ -542,8 +580,8 @@ wire [31:0] aligned_address;
       reg2_curr_instruct <= reg1_curr_instruct;
       reg2_retire_valid  <= reg1_retire_valid;
       reg2_current_PC    <= reg1_current_PC;
-      reg1_regData2     <= reg0_regData2;
-      reg1_regData1     <= reg0_regData1;       
+      reg1_regData2     <= ialu_operand1;
+      reg1_regData1     <= ialu_operand2;       
     end
   end
 
