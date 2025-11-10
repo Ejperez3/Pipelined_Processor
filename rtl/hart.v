@@ -433,7 +433,14 @@ reg [31:0] reg0_regData2;
 
 
 
+wire fw_mux1;
+wire fw_mux2;
 
+wire [31:0] fw_alu_op1;
+wire [31:0] fw_alu_op2;
+wire [31:0] ialu_operand1;
+wire [31:0] ialu_operand2;
+  reg [31:0] reg0_ALU_result;
  Forwarding_unit fw1(
 
     //When the instruction reaches EX, it checks if its rs1 or rs2 register matches the rd register of any instruction ahead 
@@ -458,13 +465,7 @@ reg [31:0] reg0_regData2;
 );
 
 
-wire fw_mux1;
-wire fw_mux2;
 
-wire [31:0] fw_alu_op1;
-wire [31:0] fw_alu_op2;
-wire [31:0] ialu_operand1;
-wire [31:0] ialu_operand2;
 
 
 assign ialu_operand1 = (fw_mux1) ? fw_alu_op1 :reg0_ALU_operand1;
@@ -528,11 +529,9 @@ wire [31:0] aligned_address;
   EX/MEM Pipeline Register
   */
   reg [31:0] reg2_PC_plus4;
-  reg [31:0] reg0_alu_result;
   reg [31:0] reg0_aligned_address; 
   reg [3:0] reg0_mask;
   reg reg0_byte_hw_unsigned;
-  reg [31:0] reg0_ALU_result;
   reg [31:0] reg1_immediate_val; 
   reg reg1_MemRead_C;
   reg [1:0] reg1_Data_sel_C; 
