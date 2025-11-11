@@ -28,7 +28,8 @@ module Forwarding_unit (
     output wire FW1_mux_sel,
     output wire FW2_mux_sel,
     output wire [31:0] FW_data1,
-    output wire [31:0] FW_data2
+    output wire [31:0] FW_data2,
+    output wire FW3_mux_sel
 );
 
   wire forward_det1;
@@ -43,12 +44,13 @@ module Forwarding_unit (
 
   assign forward_det3 = (IDEX_RS2 == EXMEM_RD) && (EXMEM_RD != 5'd0) && (EXMEM_regWrite);
   assign forward_det4 = (IDEX_RS2 == MEMWB_RD) && (MEMWB_RD != 5'd0) && (MEMWB_regWrite);
+  assign FW3_mux_sel=((op_code==7'b0100011) && (forward_det3 || forward_det4)) ? 1'b1 : 1'b0;
 
   //check if we need to forward RS1
   assign FW1_mux_sel = (~(reg_enable_1) && (forward_det1 || forward_det2)) ? 1'b1 : 1'b0;
 
   //checl if we need to forward RS2
-  assign FW2_mux_sel = (op_code==7'b0100011 || ~(reg_enable_2) && (forward_det3 || forward_det4)) ? 1'b1 : 1'b0;
+  assign FW2_mux_sel = (~(reg_enable_2) && (forward_det3 || forward_det4)) ? 1'b1 : 1'b0;
 
 
   assign FW_data1 = (forward_det1) ? EXMEM_aluResult :

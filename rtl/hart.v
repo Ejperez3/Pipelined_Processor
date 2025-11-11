@@ -450,9 +450,11 @@ wire [31:0] fw_alu_op1;
 wire [31:0] fw_alu_op2;
 wire [31:0] ialu_operand1;
 wire [31:0] ialu_operand2;
+ wire fw3_mux_sel;
   reg [31:0] reg0_ALU_result;
   wire[31:0] forward_signal;
  Forwarding_unit fw1(
+   .FW3_mux_sel(fw3_mux_sel),
    .op_code(reg1_curr_instruct[6:0]),
    .reg_enable_1(ALUmux1_reg0),
    .reg_enable_2(ALUmux2_reg0),
@@ -479,6 +481,8 @@ wire [31:0] ialu_operand2;
 );
 
 
+wire[31:0] sw_bypass;
+assign sw_bypass=(fw3_mux_sel)?(fw_alu_op2):(reg0_Mem_WD);
 
 
 
@@ -520,7 +524,7 @@ S_extend dataEXT(
   .i_old_mask(reg1_mask),
   .i_old_unsign(reg1_byte_hw_unsigned), 
 
-  .i_Rs2Data(reg0_Mem_WD),                 //register data input 
+  .i_Rs2Data(sw_bypass),                 //register data input 
   .o_Memdata(WriteDataMem),           //aligned output based on mask 
 
   .i_WB(WB_DATA),
