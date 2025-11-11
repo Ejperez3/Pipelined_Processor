@@ -311,8 +311,12 @@ Delcleration of any extra wires needed for connecting modules and for signals us
   wire [31:0] regData1;
   wire [31:0] regData2;
   wire regWrite;
+  wire ALUmux1;
+  wire ALUmux2;
 
   ID decode_I (
+    .ALUmux1(ALUmux1),
+    .ALUmux2(ALUmux2),
       .rst        (i_rst),               //input- to RF
       .clk        (i_clk),               //input- to RF
       .i_instruct (reg0_curr_instruct),  //input- full instruction input
@@ -361,6 +365,8 @@ Delcleration of any extra wires needed for connecting modules and for signals us
  ID/EX Piepline Register
 */
   reg [31:0] reg1_PC_plus4;
+  reg ALUmux1_reg0;
+  reg ALUmux2_reg0;
   reg [31:0] reg1_current_PC;
   reg [31:0] reg0_immediate_val;
   reg [2:0] reg0_func3_val;
@@ -382,6 +388,8 @@ reg [31:0] reg0_regData2;
 
   always @(posedge i_clk) begin
     if (i_rst || Mux_sel || flush) begin
+      ALUmux1_reg0<=1'b0;
+      ALUmux2_reg0<=1'b0;
       reg1_current_PC    <= 32'd0;
       reg1_PC_plus4      <= 32'd0;
       reg0_immediate_val <= 32'd0;
@@ -405,6 +413,8 @@ reg [31:0] reg0_regData2;
       reg0_regData2      <=32'd0;
 
     end else begin
+      ALUmux1_reg0<=ALUmux1;
+      ALUmux2_reg0<=ALUmux2;
       reg1_current_PC    <= reg0_current_PC;
       reg1_PC_plus4      <= reg0_PC_plus4;
       reg0_immediate_val <= immediate_val;
@@ -442,6 +452,8 @@ wire [31:0] ialu_operand1;
 wire [31:0] ialu_operand2;
   reg [31:0] reg0_ALU_result;
  Forwarding_unit fw1(
+   .reg_enable_1(ALUmux1_reg0),
+   .reg_enable_2(ALUmux2_reg0),
 
     //When the instruction reaches EX, it checks if its rs1 or rs2 register matches the rd register of any instruction ahead 
     //in the pipeline (EX/MEM or MEM/WB) If yes — we take that newer value instead of the stale one from the register file.
