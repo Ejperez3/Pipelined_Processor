@@ -57,7 +57,7 @@ module rf #(
       for (i = 0; i < 32; i = i + 1) begin
         mem[i] <= 32'd0;
       end
-    end else if (i_rd_wen && (i_rd_waddr != 5'd0)) begin  //only write if write enabled
+    end else if (i_rd_wen && (i_rd_waddr !== 5'd0)) begin  //only write if write enabled
       mem[i_rd_waddr] <= i_rd_wdata;
     end
   end

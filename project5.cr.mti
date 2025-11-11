@@ -1,0 +1,100 @@
+{C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/WB.v} {1 {vlog -work work -stats=none {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/WB.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module WB
+
+Top level modules:
+	WB
+
+} {} {}} {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/Control.v} {1 {vlog -work work -stats=none {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/Control.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module Control
+
+Top level modules:
+	Control
+
+} {} {}} {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/tb/tb.v} {1 {vlog -work work -stats=none {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/tb/tb.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module hart_tb
+
+Top level modules:
+	hart_tb
+
+} {} {}} {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/alu.v} {1 {vlog -work work -stats=none {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/alu.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module alu
+-- Compiling module barrel_shifter
+
+Top level modules:
+	alu
+
+} {} {}} {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/imm_format.v} {1 {vlog -work work -stats=none {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/imm_format.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module imm_format
+
+Top level modules:
+	imm_format
+
+} {} {}} {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/mask_gen.v} {1 {vlog -work work -stats=none {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/mask_gen.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module mask_gen
+
+Top level modules:
+	mask_gen
+
+} {} {}} {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/EX.v} {1 {vlog -work work -stats=none {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/EX.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module EX
+
+Top level modules:
+	EX
+
+} {} {}} {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/ID.v} {1 {vlog -work work -stats=none {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/ID.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module ID
+
+Top level modules:
+	ID
+
+} {} {}} {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/IF.v} {1 {vlog -work work -stats=none {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/IF.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module IF
+
+Top level modules:
+	IF
+
+} {} {}} {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/S_extend.v} {1 {vlog -work work -stats=none {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/S_extend.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module S_extend
+
+Top level modules:
+	S_extend
+
+} {} {}} {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/alu_control.v} {1 {vlog -work work -stats=none {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/alu_control.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module alu_control
+
+Top level modules:
+	alu_control
+
+} {} {}} {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/hazard.v} {1 {vlog -work work -stats=none {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/hazard.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module hazard
+
+Top level modules:
+	hazard
+
+} {} {}} {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/imm.v} {1 {vlog -work work -stats=none {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/imm.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module imm
+
+Top level modules:
+	imm
+
+} {} {}} {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/branch.v} {1 {vlog -work work -stats=none {C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/branch.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module branch
+
+Top level modules:
+	branch
+
+} {} {}}

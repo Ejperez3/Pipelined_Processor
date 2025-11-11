@@ -1,0 +1,408 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project3
+valu
+Z0 !s110 1762468142
+!i10b 1
+!s100 oc7H75DcELa>N=>JcF^zA2
+Z1 !s11b Dg1SIo80bB@j0V0VzS_@n1
+I>;`Wz9o[9I1@lWUhGFoe11
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+Z3 dC:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5
+Z4 w1762283911
+Z5 8C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/alu.v
+Z6 FC:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/alu.v
+!i122 64
+L0 8 89
+Z7 OV;L;2020.1;71
+r1
+!s85 0
+31
+Z8 !s108 1762468142.000000
+Z9 !s107 C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/alu.v|
+Z10 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/alu.v|
+!i113 1
+Z11 o-work work
+Z12 tCvgOpt 0
+valu_control
+R0
+!i10b 1
+!s100 A_`^7CWm8_61GilVQoYGO3
+R1
+I3cdzdUHnW^3;eH1PFf9]J3
+R2
+R3
+R4
+8C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/alu_control.v
+FC:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/alu_control.v
+!i122 65
+Z13 L0 3 67
+R7
+r1
+!s85 0
+31
+R8
+!s107 C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/alu_control.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/alu_control.v|
+!i113 1
+R11
+R12
+vbarrel_shifter
+R0
+!i10b 1
+!s100 @SKEIiR4k:j^IDm`j>M3b1
+R1
+IOIK^aB2[Xjo2zQMBB<;;H2
+R2
+R3
+R4
+R5
+R6
+!i122 64
+L0 98 42
+R7
+r1
+!s85 0
+31
+R8
+R9
+R10
+!i113 1
+R11
+R12
+vbranch
+R0
+!i10b 1
+!s100 eN[Z>>ci@cL0;>dT^eEbZ1
+R1
+ITf?ekVoHCn<hM`c^hdBYz0
+R2
+R3
+Z14 w1762383750
+8C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/branch.v
+FC:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/branch.v
+!i122 66
+L0 10 22
+R7
+r1
+!s85 0
+31
+R8
+!s107 C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/branch.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/branch.v|
+!i113 1
+R11
+R12
+vControl
+R0
+!i10b 1
+!s100 @9i0U2fSGWU13O@db[mPH3
+R1
+IoIH<gb5i[G;5lRH=@Y4W?1
+R2
+R3
+R4
+8C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/Control.v
+FC:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/Control.v
+!i122 67
+L0 9 84
+R7
+r1
+!s85 0
+31
+R8
+!s107 C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/Control.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/Control.v|
+!i113 1
+R11
+R12
+n@control
+vEX
+Z15 !s110 1762468143
+!i10b 1
+!s100 z6RQmmOR6RACS?Oj64hFb2
+R1
+Im<FQoSPkBiMYfzZoRa2gL3
+R2
+R3
+R4
+8C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/EX.v
+FC:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/EX.v
+!i122 68
+R13
+R7
+r1
+!s85 0
+31
+R8
+!s107 C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/EX.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/EX.v|
+!i113 1
+R11
+R12
+n@e@x
+vhart
+R15
+!i10b 1
+!s100 3BI4E54_ZnPG<TUBoBNMN3
+R1
+I<;TE>^=6LM`]@9OF0eWSN2
+R2
+R3
+w1762468134
+8C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/hart.v
+FC:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/hart.v
+!i122 69
+L0 2 642
+R7
+r1
+!s85 0
+31
+Z16 !s108 1762468143.000000
+!s107 C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/hart.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/hart.v|
+!i113 1
+R11
+R12
+vhart_tb
+R0
+!i10b 1
+!s100 fIEoOR:D`S[7HGNTg_[Cd2
+R1
+IQkKC[@3>8@=_Ff1AV7z_L0
+R2
+R3
+w1762385832
+8C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/tb/tb.v
+FC:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/tb/tb.v
+!i122 63
+L0 1 163
+R7
+r1
+!s85 0
+31
+R8
+!s107 C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/tb/tb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/tb/tb.v|
+!i113 1
+R11
+R12
+vhazard
+R15
+!i10b 1
+!s100 ]ba?NkZ9`LUGnJ<<WOmzY2
+R1
+I8=OAjmndklI1@^FQ;P<UD3
+R2
+R3
+Z17 w1762467457
+8C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/hazard.v
+FC:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/hazard.v
+!i122 70
+L0 7 30
+R7
+r1
+!s85 0
+31
+R16
+!s107 C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/hazard.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/hazard.v|
+!i113 1
+R11
+R12
+vID
+R15
+!i10b 1
+!s100 mdfBEM;deDiLALFk4c7PD2
+R1
+IKmZzbQi0Qbk2L;mXHM80P0
+R2
+R3
+R4
+8C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/ID.v
+FC:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/ID.v
+!i122 71
+L0 2 81
+R7
+r1
+!s85 0
+31
+R16
+!s107 C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/ID.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/ID.v|
+!i113 1
+R11
+R12
+n@i@d
+vIF
+R15
+!i10b 1
+!s100 BKX6R^7Y7fmQ?>f^kj<Z=0
+R1
+I4;84`dh85m]S<@`5Iid1L2
+R2
+R3
+R17
+8C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/IF.v
+FC:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/IF.v
+!i122 72
+L0 3 23
+R7
+r1
+!s85 0
+31
+R16
+!s107 C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/IF.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/IF.v|
+!i113 1
+R11
+R12
+n@i@f
+vimm
+R15
+!i10b 1
+!s100 zScGKgaJc037e:6HBhgUK1
+R1
+IZDfYCgU=RbFaW7B9i8zhl0
+R2
+R3
+R4
+8C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/imm.v
+FC:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/imm.v
+!i122 73
+L0 7 25
+R7
+r1
+!s85 0
+31
+R16
+!s107 C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/imm.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/imm.v|
+!i113 1
+R11
+R12
+vimm_format
+Z18 !s110 1762468144
+!i10b 1
+!s100 6Alkk<gda=7cUPkD6nG@H1
+R1
+IRWSoOYW^5m]@^:31UC17M3
+R2
+R3
+R4
+8C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/imm_format.v
+FC:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/imm_format.v
+!i122 74
+L0 2 34
+R7
+r1
+!s85 0
+31
+R16
+!s107 C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/imm_format.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/imm_format.v|
+!i113 1
+R11
+R12
+vmask_gen
+R18
+!i10b 1
+!s100 =;XAkDAW>LeW1=B2I3JT01
+R1
+ISFnd9jKCigeGN7WoEn[GP1
+R2
+R3
+R4
+8C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/mask_gen.v
+FC:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/mask_gen.v
+!i122 75
+L0 35 23
+R7
+r1
+!s85 0
+31
+Z19 !s108 1762468144.000000
+!s107 C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/mask_gen.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/mask_gen.v|
+!i113 1
+R11
+R12
+vrf
+R18
+!i10b 1
+!s100 CeMRGP?[cG>gZ6z@4?YAU1
+R1
+IWMe[ne3[LmPW>1<MV[U1I1
+R2
+R3
+w1762297423
+8C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/rf.v
+FC:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/rf.v
+!i122 76
+L0 12 56
+R7
+r1
+!s85 0
+31
+R19
+!s107 C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/rf.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/rf.v|
+!i113 1
+R11
+R12
+vS_extend
+R18
+!i10b 1
+!s100 R82G`l3amYW3Q=T@>3P0z2
+R1
+Ia]42MEiF>Gz<IfoOIDPPA0
+R2
+R3
+R14
+8C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/S_extend.v
+FC:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/S_extend.v
+!i122 77
+L0 3 43
+R7
+r1
+!s85 0
+31
+R19
+!s107 C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/S_extend.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/S_extend.v|
+!i113 1
+R11
+R12
+n@s_extend
+vWB
+R18
+!i10b 1
+!s100 ?`IO;]WMUifL?WLA2KmAF0
+R1
+IJRE;g=0:G:6=3lR0:C1L`2
+R2
+R3
+R4
+8C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/WB.v
+FC:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/WB.v
+!i122 78
+L0 2 26
+R7
+r1
+!s85 0
+31
+R19
+!s107 C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/WB.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/maxbs/OneDrive - UW-Madison/ECE 552/wisc25-dist/project5/rtl/WB.v|
+!i113 1
+R11
+R12
+n@w@b

@@ -1,17 +1,17 @@
 Group members: 
 -Eduardo Perez
 - Vedaant Nookala
-
+- Max Swanson
 
 
 Contributions: 
 
-Eduardo: Updated processor schematic to include 5 stage pipeline, hazard unit, static branch prediction, and EX-EX/MEM-EX forwarding. Implemented IF/ID, ID/EX, and MEM/WB pipeline in heart.v. Debugged hazard and stalling logic issues. Implemented forwarding module and connected in heart.v also debugged any integration issues with forwarding to pass tests. 
+Eduardo: Updated processor schematic to include 5 stage pipeline, hazard unit, static branch prediction, and EX-EX/MEM-EX forwarding. Implemented IF/ID, ID/EX, and MEM/WB pipeline in hart.v. Debugged hazard and stalling logic issues. Implemented forwarding module and connected in heart.v also debugged any integration issues with forwarding to pass tests. 
 
 Vedaant: worked on hazard unit logic, implementation and debugging. Logic of stalls, transitioning from working with combinational data memory/instruction memory to timed/sequential memory. Worked on debugging via waveforms and generated outputs. 
 Synthesized the netlist. 
 
-
+Max: Hazard unit, ex-mem and mem-wb pipelines and registers, bug fixing with various issues including instructions being late and unknown signals being propogated throughout the stages
 
 Ai statement:
 We certify that our usage of LLMs is consistent with UW-Madison's academic integrity
