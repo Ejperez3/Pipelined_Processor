@@ -480,8 +480,10 @@ wire [31:0] ialu_operand2;
     .FW_data2(fw_alu_op2)
 );
 
-
 wire[31:0] sw_bypass;
+wire[31:0] sw_retire_rs2;
+assign sw_retire_rs2=(fw3_mux_sel)?sw_bypass:ialu_operand2;
+
 assign sw_bypass=(fw3_mux_sel)?(fw_alu_op2):(reg0_Mem_WD);
 
 
@@ -597,7 +599,7 @@ wire [31:0] aligned_address;
       reg2_curr_instruct <= reg1_curr_instruct;
       reg2_retire_valid  <= reg1_retire_valid;
       reg2_current_PC    <= reg1_current_PC;
-      reg1_regData2     <= ialu_operand2;
+      reg1_regData2     <= sw_retire_rs2;
       reg1_regData1     <= ialu_operand1;       
     end
   end
