@@ -482,7 +482,10 @@ wire [31:0] ialu_operand2;
 
 wire[31:0] sw_bypass;
 wire[31:0] sw_retire_rs2;
-assign sw_retire_rs2=(fw3_mux_sel)?sw_bypass:ialu_operand2;
+
+assign sw_retire_rs2=(fw3_mux_sel)? sw_bypass:
+                     (fw_mux2) ? ialu_operand2:
+                      reg0_Mem_WD;
 
 assign sw_bypass=(fw3_mux_sel)?(fw_alu_op2):(reg0_Mem_WD);
 

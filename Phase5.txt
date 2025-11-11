@@ -1,0 +1,14 @@
+Group members: 
+-Eduardo Perez
+
+
+
+Contributions: 
+
+Eduardo: Updated processor schematic to include 5 stage pipeline, hazard unit, static branch prediction, and EX-EX/MEM-EX forwarding. Implemented IF/ID, ID/EX, and MEM/WB pipeline in heart.v. Debugged hazard and stalling logic issues. Implemented forwarding module and connected in heart.v also debugged any integration issues with forwarding to pass tests. 
+
+
+
+Ai statement:
+We certify that our usage of LLMs is consistent with UW-Madison's academic integrity
+policies.
