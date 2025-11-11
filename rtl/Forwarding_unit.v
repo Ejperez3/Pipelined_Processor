@@ -44,10 +44,10 @@ module Forwarding_unit (
   assign forward_det4 = (IDEX_RS2 == MEMWB_RD) && (MEMWB_RD != 5'd0) && (MEMWB_regWrite);
 
   //check if we need to forward RS1
-  assign FW1_mux_sel = ~(reg_enable_1) && (forward_det1 || forward_det2) ? 1'b1 : 1'b0;
+  assign FW1_mux_sel = (~(reg_enable_1) && (forward_det1 || forward_det2)) ? 1'b1 : 1'b0;
 
   //checl if we need to forward RS2
-  assign FW2_mux_sel = ~(reg_enable_2) && (forward_det3 || forward_det4) ? 1'b1 : 1'b0;
+  assign FW2_mux_sel = (~(reg_enable_2) && (forward_det3 || forward_det4)) ? 1'b1 : 1'b0;
 
 
   assign FW_data1 = (forward_det1) ? EXMEM_aluResult :

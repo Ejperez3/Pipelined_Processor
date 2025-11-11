@@ -451,6 +451,7 @@ wire [31:0] fw_alu_op2;
 wire [31:0] ialu_operand1;
 wire [31:0] ialu_operand2;
   reg [31:0] reg0_ALU_result;
+  wire[31:0] forward_signal;
  Forwarding_unit fw1(
    .reg_enable_1(ALUmux1_reg0),
    .reg_enable_2(ALUmux2_reg0),
@@ -467,7 +468,7 @@ wire [31:0] ialu_operand2;
     .EXMEM_regWrite(reg1_regWrite), //Write enable signals 
     .MEMWB_regWrite(reg2_regWrite),
 
-    .EXMEM_aluResult(reg0_ALU_result),
+    .EXMEM_aluResult(forward_signal),
     .MEMWB_wbValue(WriteDataReg),
 
     .FW1_mux_sel(fw_mux1),
@@ -599,6 +600,14 @@ wire [31:0] aligned_address;
   /* 
  Instantiate MEM section of proccesor  (actual memory access done outside MEM module)
 */
+  assign forward_signal=
+    (reg1_Data_sel_C==2'b00)?reg2_PC_plus4:
+    (reg1_Data_sel_C==2'b01)?reg1_immediate_val:
+    (reg1_Data_sel_C==2'b10)?reg0_ALU_result:
+    MEM_DATA;
+    
+
+
 
 
 
