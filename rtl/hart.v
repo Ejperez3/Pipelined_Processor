@@ -453,6 +453,7 @@ wire [31:0] ialu_operand2;
   reg [31:0] reg0_ALU_result;
   wire[31:0] forward_signal;
  Forwarding_unit fw1(
+   .op_code(reg1_curr_instruct[6:0]),
    .reg_enable_1(ALUmux1_reg0),
    .reg_enable_2(ALUmux2_reg0),
 
